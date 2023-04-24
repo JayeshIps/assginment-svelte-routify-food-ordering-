@@ -9,7 +9,7 @@ let showMenu:boolean = false;
 </script>
 
 <div>
-	<div class="bg-yellow-500 fixed ml-0 mr-0 w-full md:flex">
+	<div class="bg-yellow-500 fixed ml-0 mr-0 w-full md:flex z-[+1]">
 		<div class="flex md:justify-around">
             <div class="ml-0 p-5 mr-5">
                 <div class="text-black text-lg font-bold">FOODADDA</div>
@@ -41,8 +41,10 @@ let showMenu:boolean = false;
 	
 			 <!-- svelte-ignore a11y-missing-attribute -->
 			 <a href="{Navigation.Admin}" class="text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Admin</a>
+
+			 <a href="{Navigation.Footer}" class="text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Footer</a>
 	
-			  </div>
+			</div>
 			</nav>
 			
 	    </div>	

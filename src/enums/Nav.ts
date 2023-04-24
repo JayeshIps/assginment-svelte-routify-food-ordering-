@@ -4,4 +4,5 @@ export enum Navigation {
     ViewOrder = '/Orderview',
     FeedBack = '/Feedback',
     Admin = '/Admin',
+    Footer='/Footer',
 }
