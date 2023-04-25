@@ -42,8 +42,7 @@ let showMenu:boolean = false;
 			 <!-- svelte-ignore a11y-missing-attribute -->
 			 <a href="{Navigation.Admin}" class="text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Admin</a>
 
-			 <a href="{Navigation.Footer}" class="text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Footer</a>
-	
+			
 			</div>
 			</nav>
 			
