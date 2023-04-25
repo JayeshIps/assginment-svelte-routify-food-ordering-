@@ -31,12 +31,18 @@ export const FeedBackStore=writable([
 
 export const DishInfoStore=writable([
     
-  {dishname:"sandwich",price:750,description:"khskdadhdjsadk", image:"../image/imag1.jpg"},
-  {dishname:"Pizza",price:550,description:"good test", image:"../image/image2.jpg"},
-  {dishname:"Burger",price:950,description:"dsdsdfsdf", image:"../image/image3.jpg"},
-  {dishname:"Pasta",price:800,description:"hello ehello", image:"../image/image4.jpg"},
-  {dishname:"burger",price:450,description:"Veg burger", image:"../image/image5.jpg"},
-  {dishname:"sandwich",price:750,description:"khskdadhdjsadk", image:"../image/imag1.jpg"},
-  {dishname:"Pizza",price:550,description:"good test", image:"../image/image2.jpg"},
-  {dishname:"Pasta",price:800,description:"hello ehello", image:"../image/image4.jpg"},
+  {dishId:1,dishname:"sandwiches",price:750,description:"khskdadhdjsadk", image:"../image/imag1.jpg"},
+  {dishId:2,dishname:"Pizza",price:550,description:"good test", image:"../image/image2.jpg"},
+  {dishId:3,dishname:"Burger",price:950,description:"dsdsdfsdf", image:"../image/image3.jpg"},
+  {dishId:4,dishname:"Pasta",price:800,description:"hello ehello", image:"../image/image4.jpg"},
+  {dishId:5,dishname:"burger",price:450,description:"Veg burger", image:"../image/image5.jpg"},
+  {dishId:6,dishname:"sandwich",price:750,description:"khskdadhdjsadk", image:"../image/imag1.jpg"},
+  {dishId:7,dishname:"Pizza",price:550,description:"good test", image:"../image/image2.jpg"},
+  {dishId:8,dishname:"Pasta",price:800,description:"hello ehello", image:"../image/image4.jpg"},
+
+]);
+
+export const CartStore=writable([
+  {dishId:1,dishname:"sandwiches",price:750,description:"khskdadhdjsadk",quantity:1, image:"../image/imag1.jpg"},
+  {dishId:8,dishname:"Pasta",price:800,description:"hello ehello",quantity:1, image:"../image/image4.jpg"},
 ]);

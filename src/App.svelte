@@ -5,4 +5,5 @@
 </script>
 
 <Router {routes} />
+
 <Footer/>
