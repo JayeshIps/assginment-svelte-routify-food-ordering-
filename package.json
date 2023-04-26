@@ -31,7 +31,10 @@
     "typescript": "^4.9.0"
   },
   "dependencies": {
+    "react-toastify": "^9.1.2",
     "sirv-cli": "^2.0.0",
+    "svelte-routing": "^1.6.0",
+    "toastr": "^2.1.4",
     "vest": "^4.6.9"
   }
 }

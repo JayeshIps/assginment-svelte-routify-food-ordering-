@@ -43,15 +43,15 @@
         <tbody>
           {#each $CartStore as item}
             <tr class="transition duration-400 hover:bg-slate-100 hover:shadow-xl hover:border-amber-400">
-              <td class="p-2"><img src="{item.image}" alt="" style="width: 100px;"></td>
-              <td class="p-2">{item.dishname}</td>
-              <td class="p-2">{item.description}</td>
-              <td class="p-2">
+              <td data-th="Image" class="p-2"><img src="{item.image}" alt="" style="width: 100px;"></td>
+              <td data-th="Name" class="p-2">{item.dishname}</td>
+              <td data-th="Description" class="p-2">{item.description}</td>
+              <td data-th="Quantity" class="p-2">
                 <button class="bg-gray-300 px-2 py-1 rounded-md mr-2" on:click={() => decrement(item.dishId)}>−</button>
                 {item.quantity}
                 <button class="bg-gray-300 px-2 py-1 rounded-md ml-2" on:click={() => increment(item.dishId)}>+</button>
               </td>
-              <td class="p-2">${item.price * item.quantity}</td>
+              <td data-th="Price" class="p-2">${item.price * item.quantity}</td>
             </tr>
           {/each}
         </tbody>
