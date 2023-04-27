@@ -31,18 +31,23 @@ export const FeedBackStore=writable([
 
 export const DishInfoStore=writable([
     
-  {dishId:1,dishname:"sandwiches",price:750,description:"khskdadhdjsadk", image:"../image/imag1.jpg"},
-  {dishId:2,dishname:"Pizza",price:550,description:"good test", image:"../image/image2.jpg"},
-  {dishId:3,dishname:"Burger",price:950,description:"dsdsdfsdf", image:"../image/image3.jpg"},
-  {dishId:4,dishname:"Pasta",price:800,description:"hello ehello", image:"../image/image4.jpg"},
-  {dishId:5,dishname:"burger",price:450,description:"Veg burger", image:"../image/image5.jpg"},
-  {dishId:6,dishname:"sandwich",price:750,description:"khskdadhdjsadk", image:"../image/imag1.jpg"},
-  {dishId:7,dishname:"Pizza",price:550,description:"good test", image:"../image/image2.jpg"},
-  {dishId:8,dishname:"Pasta",price:800,description:"hello ehello", image:"../image/image4.jpg"},
+  {dishId:1,dishname:"French Fries",price:750,description:"French Fries Description", image:"../image/image1.jpg"},
+  {dishId:2,dishname:"Pizza",price:550,description:"Pizza Description", image:"../image/image2.jpg"},
+  {dishId:3,dishname:"Burger",price:950,description:"Burger Description", image:"../image/image4.jpg"},
+  {dishId:4,dishname:"Frankie",price:800,description:"Frankie Description", image:"../image/image5.jpg"},
+  {dishId:5,dishname:"burger",price:450,description:"Veg burger Description", image:"../image/image11.jpg"},
+  {dishId:6,dishname:"Gujrati Thali",price:750,description:"Gujrati Thali Description", image:"../image/image12.jpg"},
+  {dishId:7,dishname:"Khaman",price:550,description:"Khaman Description", image:"../image/image13.jpg"},
+  {dishId:8,dishname:"icecream",price:800,description:"icecream Description", image:"../image/image8.jpg"},
+  {dishId:9,dishname:"Pizza",price:550,description:"Pizza Description", image:"../image/image15.jpg"},
+  {dishId:10,dishname:"Panjabi Thali",price:800,description:"Panjabi Thali Description", image:"../image/image16.jpg"},
+  {dishId:11,dishname:"Gujrati Thali",price:800,description:"Gujrati Thali Description", image:"../image/image14.jpg"},
+  {dishId:12,dishname:"Noodles",price:550,description:"Noodles Description", image:"../image/image9.jpg"},
+  {dishId:13,dishname:"Chocolate Shake",price:800,description:"Chocolate Shake Description", image:"../image/image10.jpg"},
 
 ]);
 
 export const CartStore=writable([
-  {dishId:1,dishname:"sandwiches",price:750,description:"khskdadhdjsadk",quantity:1, image:"../image/imag1.jpg"},
-  {dishId:8,dishname:"Pasta",price:800,description:"hello ehello",quantity:1, image:"../image/image4.jpg"},
+  {cartId:1,dishId:1,dishname:"sandwiches",price:750,description:"khskdadhdjsadk",quantity:1, image:"../image/image1.jpg"},
+  {cartId:2,dishId:8,dishname:"Pasta",price:800,description:"hello ehello",quantity:1, image:"../image/image13.jpg"},
 ]);

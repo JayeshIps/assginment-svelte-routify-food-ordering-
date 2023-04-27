@@ -32,29 +32,7 @@ const suite = create((data = {}, currentField) => {
     });
 
 
-    test("dishname", "This Field is Required", () => {
-        enforce(data.dishname).isNotBlank();
-      });
     
-      test("dishname", "dishname must be at least 3 characters long", () => {
-        enforce(data.dishname).longerThanOrEquals(3);
-      });
-  
-      test('dishname', 'dishname should not contain numerical characters', () => {
-          enforce(data.dishname).matches(/^[^0-9]*$/);
-      });
-
-      test("price", "This Field is Required", () => {
-        enforce(data.price).isNotBlank();
-      });
-    
-     test('description','This Field is Required',()=>{
-        enforce(data.description).isNotBlank();
-      });
-   
-    test('description', 'description should not contain numerical characters', () => {
-        enforce(data.description).matches(/^[^0-9]*$/);
-      });
     
 });
 

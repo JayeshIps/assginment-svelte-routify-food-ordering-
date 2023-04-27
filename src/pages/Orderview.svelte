@@ -1,11 +1,12 @@
 <script lang="ts">
   import { CartStore } from "../store/storeData";
   import * as _ from 'lodash';
+  import 'toastr/build/toastr.min.css';
+  import toastr from 'toastr';
     
   function increment(id:number){
     CartStore.update(quantity=>{
-      let updateQuantity= _.find(quantity,{dishId:id})
-      
+      let updateQuantity= _.find(quantity,{cartId:id})
       updateQuantity.quantity++;
       return quantity;
     })
@@ -13,15 +14,27 @@
   
   function decrement(id:number){
   CartStore.update(quantity=>{
-    let updateQuantity= _.find(quantity,{dishId:id})
-    
+    let updateQuantity= _.find(quantity,{cartId:id})
     if (updateQuantity.quantity > 1) {
       updateQuantity.quantity--;
     }
-    
     return quantity;
   })
 }
+
+const cartDeleteItem = (id: number) => {
+  CartStore.update(cartitem => {
+    const index = cartitem.findIndex(x => x.cartId === id);
+    if (index !== -1) {
+      cartitem.splice(index, 1);
+    }
+    return cartitem;
+  });
+  toastr.error('&#x2716; Deleted Successfully');
+
+};
+
+
 
   
   </script>
@@ -38,6 +51,7 @@
             <th class="p-2">Description</th>
             <th class="p-2">Quantity</th>
             <th class="p-2">Price</th>
+            <th class="p-2">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -47,11 +61,16 @@
               <td data-th="Name" class="p-2">{item.dishname}</td>
               <td data-th="Description" class="p-2">{item.description}</td>
               <td data-th="Quantity" class="p-2">
-                <button class="bg-gray-300 px-2 py-1 rounded-md mr-2" on:click={() => decrement(item.dishId)}>−</button>
+                <button class="bg-gray-300 px-2 py-1 rounded-md mr-2" on:click={() => decrement(item.cartId)}>−</button>
                 {item.quantity}
-                <button class="bg-gray-300 px-2 py-1 rounded-md ml-2" on:click={() => increment(item.dishId)}>+</button>
+                <button class="bg-gray-300 px-2 py-1 rounded-md ml-2" on:click={() => increment(item.cartId)}>+</button>
               </td>
               <td data-th="Price" class="p-2">${item.price * item.quantity}</td>
+              
+              <td data-th="Delete" class="p-2">
+                <button type="button" on:click = {()=>cartDeleteItem(item.cartId)} class="bg-gray-300 hover:bg-red-500 px-2 py-1 rounded-md ml-2"><i class="fa-solid fa-trash-can"></i></button>
+              </td>
+              
             </tr>
           {/each}
         </tbody>
