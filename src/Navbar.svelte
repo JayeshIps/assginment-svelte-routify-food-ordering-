@@ -1,14 +1,22 @@
 <script lang="ts">
 import {Navigation} from "./enums/Nav"
+import { CartStore } from "./store/storeData";
+
 
 let showMenu:boolean = false;
 	function toggleNavbar() {
 	  showMenu = !showMenu;
 	}
 
+	let totalItem=0;
+    $:totalItem=Object.keys($CartStore).length;
+
+	let listMenu=false;
+
 </script>
 
 <div>
+
 	<div class="bg-yellow-500 fixed ml-0 mr-0 w-full md:flex z-[+1]">
 		<div class="flex md:justify-around">
             <div class="ml-0 p-5 mr-5">
@@ -19,8 +27,16 @@ let showMenu:boolean = false;
             <div class="absolute right-6">
 		        <!-- svelte-ignore a11y-click-events-have-key-events -->
 				<div on:click={toggleNavbar} class="flex md:hidden absolute right-8 mt-2">
+					<p class="pt-8 text-2xl font-bold text-white">{totalItem}</p>
 					<i class="fa-solid fa-bars text-white text-3xl"></i>
+
 				</div> 
+				
+
+				<div class="flex justify-end text-3xl mt-12">
+					<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+				</div>
+			
                
             </div>
 			<nav class="container px-1 py-1 mx-auto md:flex   md:items-center">
@@ -40,10 +56,21 @@ let showMenu:boolean = false;
 			 <a href="{Navigation.FeedBack}" class="text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Feedback</a>
 	
 			 <!-- svelte-ignore a11y-missing-attribute -->
-			 <a href="{Navigation.Admin}" class="text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Admin</a>
-
-			
+			 
+			 <div class="group relative dropdown  cursor-pointer font-bold text-base  tracking-wide">
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<span class="relative text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Admin</span>
+				<div class="group-hover:block dropdown-menu absolute hidden h-auto">
+		        
+					<ul class="top-0 w-48 bg-white shadow px-6 py-8">
+						<li><a href="{Navigation.Admin}" class="font-medium text-lg hover:text-gray-800" on:click={toggleNavbar}>Admin items</a></li>
+						
+						<li><a href="{Navigation.FeedBackData}" class="font-medium text-lg hover:text-gray-800" on:click={toggleNavbar}>Feedbacks</a><li>
+					</ul>
+				
+			   </div>
 			</div>
+           </div>
 			</nav>
 			
 	    </div>	

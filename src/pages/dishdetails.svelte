@@ -1,6 +1,8 @@
 <script lang="ts">
-import { DishInfoStore } from "../store/storeData";
+import { DishInfoStore,CartStore } from "../store/storeData";
 import * as _ from 'lodash';
+import 'toastr/build/toastr.min.css';
+import toastr from 'toastr';
 
 let url = window.location.search;
 let urlData = new URLSearchParams(url)
@@ -8,35 +10,72 @@ let id = urlData.get('id');
 
 
 let dishDetail=_.find($DishInfoStore,x=>x.dishId==id)
+console.log(dishDetail);
 
+let count = 1;
+
+    function increment(){
+        count++
+    }
+
+    function decrement(){
+        (count<=1)?'':count--;
+    }
+
+    const handleCart = () => {
+        let cartId = 1;
+        let cartdata = $CartStore;
+        if (cartdata.length > 0) {
+            let data=_.last(cartdata)
+            cartId = data.cartId+1
+        }
+        CartStore.update((items) => [...items,  {cartId:cartId,dishId:dishDetail.dishId,dishname:dishDetail.dishname,price:dishDetail.price,description:dishDetail.description,quantity:count, image:dishDetail.image}]);
+        toastr.success('Add To Cart Successfully');
+    };
 </script>
   
-<!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:mx-5 md:mr-18 mx-3 max-w-full" >
-    
-    <div class="flex flex-col items-start justify-start bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 p-6">
-        <img class=" w-full h-full rounded-lg md:w-58 md:h-auto md:rounded-none md:rounded-l-lg mb-6 md:mb-0" src="{dishDetail.image}" alt="{dishDetail.dishname}">
-        <div class="flex flex-col justify-between p-12 leading-normal">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{dishDetail.dishname}</h5>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Descripation:{dishDetail.description}</p>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Price: ${dishDetail.price}</p>
-        </div>
-    </div>
-   
-</div>
- -->
+<div class="w-full p-6">
+    <div class="mx-3 p-3 border-4 border-yellow-400 rounded-2xl justify-center items-center transition duration-400 cursor-default hover:bg-slate-100 hover:shadow-xl hover:border-gray-900">
+        
+        <form >
+            <div class="grid md:grid-cols-1 md:grid-cols-2 gap-3 ">
+                
+                <div class="">
+                    <img class="object-cover h-52 md:h-80 w-full rounded-lg shadow-xl dark:shadow-gray-80" src="{dishDetail.image}" alt="">
+                </div>
 
- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto md:mx-5 md:mr-18 w-full md:w-3/4">
-    <div class="card bg-white rounded-lg overflow-hidden shadow-md text-left transition duration-300 ease-in-out hover:bg-gray-100 hover:shadow-lg hover:text-gray-900 hover:border-gray-900 border-2 mx-auto" style="width: 350px;">
-        <img src="{dishDetail.image}" alt="" class="w-full h-56 object-cover">
-        <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-2 text-center">{dishDetail.dishname}</div>
-            <p class="text-red-700 text-base">${dishDetail.price}</p>
-            <p class="text-gray-700 font-bold text-sm">{dishDetail.description}</p>
-            <button  class="bg-gray-900 text-white px-3 py-1 mt-3 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out">
-                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                Add to cart
-            </button>
-        </div>
+                <div class="p-6 flex ">
+                    <div class="h-48">
+                        <div class="text-3xl font-bold py-1">
+                            {dishDetail.dishname}
+                        </div>
+                        <div class="text-lg py-1">
+                            {dishDetail.description}
+                        </div>
+    
+                        <div class="flex py-1">
+                            <div class="text-xl font-bold">
+                                Quantity: &nbsp;
+                                <button type="button" class="bg-gray-300 px-2 py-1 rounded-md mr-2" on:click={() => decrement()}>−</button>
+                                 {count}
+                               <button type="button" class="bg-gray-300 px-2 py-1 rounded-md ml-2" on:click={() => increment()}>+</button>
+                            </div>
+                        </div>
+
+                        
+                        <div class="flex text-xl font-bold ">
+                            Price:
+                            <td data-th="Price" class="p-2">${dishDetail.price * count}</td>
+                        </div>
+                        <button on:click={handleCart} type="button" class="bg-gray-900 text-white px-3 py-1 mt-3 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out">
+                            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                            Add to cart
+                        </button>
+                    </div>
+                
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
