@@ -10,7 +10,6 @@ let id = urlData.get('id');
 
 
 let dishDetail=_.find($DishInfoStore,x=>x.dishId==id)
-console.log(dishDetail);
 
 let count = 1;
 
@@ -38,10 +37,10 @@ let count = 1;
     <div class="mx-3 p-3 border-4 border-yellow-400 rounded-2xl justify-center items-center transition duration-400 cursor-default hover:bg-slate-100 hover:shadow-xl hover:border-gray-900">
         
         <form >
-            <div class="grid md:grid-cols-1 md:grid-cols-2 gap-3 ">
+            <div class="grid md:grid-cols-2 gap-3 ">
                 
                 <div class="">
-                    <img class="object-cover h-52 md:h-80 w-full rounded-lg shadow-xl dark:shadow-gray-80" src="{dishDetail.image}" alt="">
+                    <img class="object-cover h-64 md:h-96 w-full rounded-lg shadow-xl dark:shadow-gray-80" src="{dishDetail.image}" alt="">
                 </div>
 
                 <div class="p-6 flex ">
@@ -56,9 +55,9 @@ let count = 1;
                         <div class="flex py-1">
                             <div class="text-xl font-bold">
                                 Quantity: &nbsp;
-                                <button type="button" class="bg-gray-300 px-2 py-1 rounded-md mr-2" on:click={() => decrement()}>−</button>
+                                <button type="button" class="bg-blue-600 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement()}>−</button>
                                  {count}
-                               <button type="button" class="bg-gray-300 px-2 py-1 rounded-md ml-2" on:click={() => increment()}>+</button>
+                               <button type="button" class="bg-blue-600 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => increment()}>+</button>
                             </div>
                         </div>
 

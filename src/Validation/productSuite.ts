@@ -3,7 +3,7 @@ import { create, test, enforce, only } from "vest";
 const suite = create((data = {}, currentField) => {
     only(currentField);
   
-    test("dishname", "This Field is Required", () => {
+    test("dishname", "This Field is Required.", () => {
         enforce(data.dishname).isNotBlank();
       });
     
@@ -15,11 +15,11 @@ const suite = create((data = {}, currentField) => {
           enforce(data.dishname).matches(/^[^0-9]*$/);
       });
 
-      test("price", "This Field is Required", () => {
+      test("price", "This Field is Required.", () => {
         enforce(data.price).isNotBlank();
       });
     
-     test('description','This Field is Required',()=>{
+     test('description','This field is required',()=>{
         enforce(data.description).isNotBlank();
       });
    

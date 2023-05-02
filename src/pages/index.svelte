@@ -4,15 +4,50 @@
     import { url } from '@sveltech/routify';
     import 'toastr/build/toastr.min.css';
     import toastr from 'toastr';
+    import { onMount } from "svelte";
+    import * as _ from 'lodash'
   
+
     const handleSubmit = (item) => {
-       CartStore.update((items) => [...items,  {cartId:item.cartId,dishId:item.dishId,dishname:item.dishname, price:item.price,description:item.description,quantity:1, image:item.image}]);
+     let cartid=1
+      let lastdish=_.last($CartStore)
+      if(lastdish){
+        cartid=lastdish.cartId;
+      }
+       CartStore.update((items) => [...items,  {cartId:cartid,dishId:item.dishId,dishname:item.dishname, price:item.price,description:item.description,quantity:1, image:item.image}]);
        toastr.success('Add To Cart Successfully');
     };
+
+   
+    const images = [
+      "../image/slide3.avif",
+      "../image/slide4.avif",
+      "../image/slide5.avif",
+    ];
+    
+    let currentIndex = 0;
+    const interval = 2000;
+    
+    function next() {
+      currentIndex = (currentIndex + 1) % images.length;
+    }
+    
+    onMount(() => {
+      const intervalId = setInterval(() => {
+        next();
+      }, interval);
+      
+      return () => clearInterval(intervalId);
+    });
 
 
 </script>
 
+
+<div>
+  <!-- svelte-ignore a11y-img-redundant-alt -->
+  <img class="max-h-96 w-full  opacity-150 mb-2  " src="{images[currentIndex]}" alt="image description">	
+</div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:mx-5 md:mr-18 mx-3">
   {#each $DishInfoStore as item}

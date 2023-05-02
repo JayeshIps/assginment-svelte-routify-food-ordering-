@@ -9,7 +9,7 @@
         </div>
     </footer>
 </div> -->
-<div class="p-12"></div>
+<div class="p-36"></div>
 <footer class="fixed bottom-0 w-full ">
     <div class="bg-gray-800 text-white py-4">
         <div class="my-2 text-center">
