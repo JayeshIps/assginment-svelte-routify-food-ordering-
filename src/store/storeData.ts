@@ -48,6 +48,6 @@ export const DishInfoStore=writable([
 ]);
 
 export const CartStore=writable([
-  {cartId:1,dishId:1,dishname:"sandwiches",price:750,description:"khskdadhdjsadk",quantity:1, image:"../image/image1.jpg"},
-  {cartId:2,dishId:8,dishname:"Pasta",price:800,description:"hello ehello",quantity:1, image:"../image/image13.jpg"},
+  {cartId:1,dishId:1,dishname:"Frech Fries",price:750,description:"Frech Fries description",quantity:1, image:"../image/image1.jpg"},
+  {cartId:2,dishId:8,dishname:"Khaman",price:800,description:"Khamandescription",quantity:1, image:"../image/image13.jpg"},
 ]);

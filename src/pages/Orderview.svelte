@@ -30,8 +30,7 @@ const cartDeleteItem = (id: number) => {
     }
     return cartitem;
   });
-  toastr.error('&#x2716; Deleted Successfully');
-
+  toastr.error('Deleted Successfully'); 
 };
 
 
@@ -39,7 +38,7 @@ const cartDeleteItem = (id: number) => {
   
   </script>
   
-  <div class="w-full p-6">
+  <div class="w-full p-6 hidden md:block">
     {#if $CartStore.length === 0}
       <p>Your cart is empty</p>
     {:else}
@@ -61,9 +60,9 @@ const cartDeleteItem = (id: number) => {
               <td data-th="Name" class="p-2">{item.dishname}</td>
               <td data-th="Description" class="p-2">{item.description}</td>
               <td data-th="Quantity" class="p-2">
-                <button class="bg-gray-300 px-2 py-1 rounded-md mr-2" on:click={() => decrement(item.cartId)}>−</button>
+                <button class="bg-blue-600 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement(item.cartId)}>−</button>
                 {item.quantity}
-                <button class="bg-gray-300 px-2 py-1 rounded-md ml-2" on:click={() => increment(item.cartId)}>+</button>
+                <button class="bg-blue-600 px-2 py-1 rounded-md ml-2 text-white font-extrabold" on:click={() => increment(item.cartId)}>+</button>
               </td>
               <td data-th="Price" class="p-2">${item.price * item.quantity}</td>
               
@@ -76,6 +75,27 @@ const cartDeleteItem = (id: number) => {
         </tbody>
       </table>
     {/if}
+  </div>
+
+  <div class="px-2 py-1 md:hidden flex-row">
+    {#each $CartStore as item}
+      <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6">
+        <img class="w-full h-48 object-cover" src="{item.image}" alt="{item.dishname}">
+        <div class="p-4">
+          <h2 class="font-bold text-lg mb-2">{item.dishname}</h2>
+          <p class="text-gray-700 text-base mb-4">{item.description}</p>
+          <div class="flex justify-between items-center">
+            <div class="flex items-center">
+              <button class="bg-blue-600 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement(item.cartId)}>−</button>
+              <p class="text-gray-700 font-bold text-lg">{item.quantity}</p>
+              <button class="bg-blue-600 px-2 py-1 rounded-md ml-2 text-white font-extrabold" on:click={() => increment(item.cartId)}>+</button>
+            </div>
+            <p class="font-bold text-lg">${item.price * item.quantity}</p>
+          </div>
+          <button type="button" on:click={() => cartDeleteItem(item.cartId)} class="bg-gray-300 hover:bg-red-500 px-2 py-1 rounded-md mt-4"><i class="fa-solid fa-trash-can"></i> Delete</button>
+        </div>
+      </div>
+    {/each}
   </div>
   
   <style>

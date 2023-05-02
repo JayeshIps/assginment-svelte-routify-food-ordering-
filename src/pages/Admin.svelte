@@ -1,6 +1,5 @@
 <script lang="ts">
   import * as _ from 'lodash';
-  import {FeedBackStore } from '../store/storeData'
   import classnames from "vest/classnames";
   import Button from "../components/button.svelte";
   import Inputarea from "../components/inputarea.svelte";
@@ -19,6 +18,7 @@
   const handleChange = (name) => {    
     result = suite(formState,name)
   };
+
   $: cn = classnames(result, {
       warning: "warning",
       invalid: "error",
@@ -34,23 +34,33 @@
   
 
   let adddish:boolean=false;
-function toggleAddDishes(){
+  function toggleAddDishes(){
   adddish = !adddish
+  if(adddish){
+      document.body.classList.add('overflow-hidden');
+  }
+  else{
+      document.body.classList.remove('overflow-hidden');
+  }
 }
 
-  const addDish = (event): void => {
+const addDish = (event): void => {
   event.preventDefault();
+
   let Dishid = 1;
   let dishData = $DishInfoStore;
-  if (dishData.length > 0) {
-    Dishid = dishData[dishData.length - 1].dishId + 1;
+  if(_.last(dishData))
+  {
+    Dishid=_.last(dishData).dishId+1;
   }
+
   const newDish = {
     dishId:Dishid,
     dishname: formState.dishname,
     price: formState.price,
     description: formState.description,
-    image: event.target.image.files[0],};
+    image: event.target.image.files[0]
+  };
   
   DishInfoStore.update(dishes => [...dishes, newDish]);
   disabled=true;
@@ -61,9 +71,10 @@ function toggleAddDishes(){
 };
 
 //start delete function
-let delDishName = '';
+let delDishName:string = '';
 let delid: number | undefined;
-let delname = '';
+let delname:string = '';
+let deleteError:string=''
 
 function findDeleteDish(id: number, name: string): void {
   delid = id;
@@ -77,14 +88,13 @@ const deleteDish = (): void => {
 
   DishInfoStore.update(dishes => {
     const index = _.findIndex(dishes, x => x.dishId === delid);
-
-    console.log(index);
-    if (index !== -1) {
+   if (index !== -1) {
       if (deleteName === delDishName) {
         _.remove(dishes, x => x.dishId === delid);
         formState.dishname = '';
+        deleteError='';
       } else {
-        formState.dishname="Dish name is Not Matched"
+        deleteError="Dish name is Not Matched"
       }
 
       toggleDeleteDish();
@@ -99,6 +109,13 @@ const deleteDish = (): void => {
 let deletedish:boolean=false;
 function toggleDeleteDish(){
   deletedish = !deletedish
+
+  if(deletedish){
+      document.body.classList.add('overflow-hidden');
+  }
+  else{
+      document.body.classList.remove('overflow-hidden');
+  }
 }
 //End delete function
 
@@ -107,6 +124,12 @@ function toggleDeleteDish(){
 let editdish:boolean=false;
 function toggleEditDish(){
   editdish = !editdish
+  if(editdish){
+      document.body.classList.add('overflow-hidden');
+  }
+  else{
+      document.body.classList.remove('overflow-hidden');
+  }
 }
 
 // --------------
@@ -235,14 +258,22 @@ function saveDish() {
       </thead>
       <tbody>
         {#each $DishInfoStore as item}
-          <tr class="transition duration-400 hover:bg-slate-100 hover:shadow-xl hover:border-amber-400">
-            <td data-th="Image" class="p-2"><img src="{item.image}" alt="" style="width: 100px;"></td>
+          <tr class="h-44 transition duration-400 hover:bg-slate-100 hover:shadow-xl hover:border-amber-400">
+            <td data-th="Image" class="p-2"><img src="{item.image}" class="h-24" alt="" style="width: 100px;"></td>
             <td data-th="Name" class="p-2">{item.dishname}</td>
             <td data-th="Description" class="p-2">{item.description}</td>
             <td data-th="Price" class="p-2">${item.price}</td>
             <td data-th="Action" class="p-2">
-              <button type="button" on:click = {()=>{toggleEditDish(); updateDish(item.dishId,item.dishname); }} class="bg-gray-300 hover:bg-yellow-500 px-2 py-1 rounded-md ml-2" ><i class="fa fa-pencil-square" aria-hidden="true"></i></button>
-              <button type="button" on:click = {()=>{toggleDeleteDish(); findDeleteDish(item.dishId,item.dishname);}} class="bg-gray-300 hover:bg-red-700 px-2 py-1 rounded-md ml-2"><i class="fa-solid fa-trash-can"></i></button>
+              <div class="group relative dropdown  cursor-pointer font-bold text-base  tracking-wide">
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <span class="relative text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8">...</span>
+                <div class="group-hover:block dropdown-menu absolute hidden h-auto">
+                  <ul class="top-0 w-48 bg-white shadow px-2 py-4">
+                    <li><button type="button" on:click = {()=>{toggleEditDish(); updateDish(item.dishId,item.dishname); }}  class="font-medium text-lg hover:bg-yellow-500 "><i class="fa fa-pencil-square" aria-hidden="true"></i>Edit</button></li>
+                    <li><button type="button" on:click = {()=>{toggleDeleteDish(); findDeleteDish(item.dishId,item.dishname);}}  class="font-medium text-lg  hover:bg-red-500 "><i class="fa-solid fa-trash-can"></i>Delete</button><li>
+                  </ul>
+                </div>
+              </div>
             </td>
             
           </tr>
@@ -251,6 +282,8 @@ function saveDish() {
     </table>
   {/if}
 </div>
+
+
 
 
 

@@ -22,11 +22,9 @@
                           </div>
                       </div>
                   </td>
-  
                   <td data-th="Email" class="px-6 py-4">
                       <p class="text-gray-500 text-sm font-semibold tracking-wide"> {item.email} </p>
                   </td>
-                  
                   <td data-th="Message" class="px-6 py-4"> 
                     <p class="text-gray-500 text-sm font-semibold tracking-wide">{item.Message}</p>
                   </td>
