@@ -8,20 +8,47 @@
     import * as _ from 'lodash'
   
 
-    const handleSubmit = (item) => {
-     let cartid=1
-      let lastdish=_.last($CartStore)
-      if(lastdish){
-        cartid=lastdish.cartId;
-      }
-       CartStore.update((items) => [...items,  {cartId:cartid,dishId:item.dishId,dishname:item.dishname, price:item.price,description:item.description,quantity:1, image:item.image}]);
-       toastr.success('Add To Cart Successfully');
-    };
+  const handleSubmit = (item) => {
+  const existingItemIndex = $CartStore.findIndex((cartItem) => cartItem.dishId === item.dishId);
+  if (existingItemIndex !== -1) {
+      
+    CartStore.update((items) => {
+      const updatedItems = [...items];
+      updatedItems[existingItemIndex] = {
+        ...updatedItems[existingItemIndex],
+        quantity: updatedItems[existingItemIndex].quantity + 1,
+      };
+      toastr.success('Qunatity is increase');
+      return updatedItems;
+    });
+  } else {
+    
+    let cartid = 1;
+    let lastdish = _.last($CartStore);
+    if (lastdish) {
+      cartid = lastdish.cartId + 1;
+    }
+    CartStore.update((items) => [
+      ...items,
+      {
+        cartId: cartid,
+        dishId: item.dishId,
+        dishname: item.dishname,
+        price: item.price,
+        description: item.description,
+        quantity: 1,
+        image: item.image,
+      },
+    ]);
+    toastr.success('Add To Cart Successfully');
+  }
+};
+
 
    
     const images = [
       "../image/slide3.avif",
-      "../image/slide4.avif",
+      "../image/slide2.avif",
       "../image/slide5.avif",
     ];
     
@@ -58,9 +85,9 @@
         
         <div class="font-bold text-xl mb-2 text-center">{item.dishname}</div>
         
-        <p class="text-red-700 text-base">${item.price}</p>
+        <p class="text-red-700 font-bold text-base">&#8377; {item.price}</p>
         
-        <p class="text-gray-700 font-bold text-sm">{item.description}</p>
+        <p class="text-black-700 text-sm">{item.description}</p>
         
         <button type="submit"  class="bg-gray-700 text-white px-3 py-1 mt-3 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out">
           <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>

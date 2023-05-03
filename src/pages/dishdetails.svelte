@@ -63,8 +63,8 @@ let count = 1;
 
                         
                         <div class="flex text-xl font-bold ">
-                            Price:
-                            <td data-th="Price" class="p-2">${dishDetail.price * count}</td>
+                            
+                           <span>Price:</span> <td data-th="Price" class="p-2">&#8377;{dishDetail.price * count}</td>
                         </div>
                         <button on:click={handleCart} type="button" class="bg-gray-900 text-white px-3 py-1 mt-3 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out">
                             <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
