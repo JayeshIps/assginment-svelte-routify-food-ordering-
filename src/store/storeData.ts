@@ -56,10 +56,8 @@ export const DishInfoStore=writable([
   {dishId:22,dishname:"Samosha",price:150,description:"delicious Samosha.", image:"../image/image17.jpg"},
   {dishId:23,dishname:"French Fries",price:150,description:"French fries: Crispy and golden on the outside,these fried potatoes are the perfect snack or side dish.", image:"../image/image1.jpg"},
   {dishId:24,dishname:"shake",price:650,description:"shake: A frozen dessert made of milk or cream, sugar, and various flavors such as vanilla, chocolate, and fruit.", image:"../image/shake1.jpg"},
-  {dishId:25,dishname:"cake",price:800,description:"cake: A frozen dessert made of milk or cream, sugar, and various flavors such as vanilla, chocolate, and fruit.", image:"../image/cake.jpg"},
-
+  {dishId:25,dishname:"cake",price:800,description:"cake: A frozen dessert made of milk, sugar, and various flavors such as vanilla, chocolate, and fruit.", image:"../image/cake.jpg"},
 ]);
-
 export const CartStore=writable([
   {cartId:1,dishId:1,quantity:1},
   {cartId:2,dishId:2,quantity:1},
