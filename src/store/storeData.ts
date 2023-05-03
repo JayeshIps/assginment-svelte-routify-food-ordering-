@@ -44,7 +44,7 @@ export const DishInfoStore=writable([
   {dishId:11,dishname:"Gujrati Thali",price:650,description:"Gujarati Thali: A traditional meal from the Indian state of Gujarat consisting of a variety of vegetarian dishes.  ", image:"../image/image14.jpg"},
   {dishId:12,dishname:"Noodles",price:550,description:"Noodles: A staple dish in many Asian cuisines", image:"../image/image9.jpg"},
   {dishId:13,dishname:"Chocolate Shake",price:800,description:"Ice cream: A frozen dessert made of milk or cream, sugar, and various flavors such as vanilla, chocolate, and fruit.", image:"../image/image10.jpg"},
-  {dishId:14,dishname:"biryani",price:500,description:"biryani: A frozen dessert made of milk or cream, sugar, and various flavors such as vanilla, chocolate, and fruit.", image:"../image/biryani.jpg"},
+  {dishId:14,dishname:"biryani",price:500,description:"biryani:Good taste of birayani include vegetable.", image:"../image/biryani.jpg"},
   {dishId:15,dishname:"paratha",price:350,description:"Iparatha: A frozen dessert made of milk or cream, sugar, and various flavors such as vanilla, chocolate, and fruit.", image:"../image/paratha.jpg"},
   {dishId:16,dishname:"Nan",price:450,description:"Nan: A frozen dessert made of milk or cream, sugar, and various flavors such as vanilla, chocolate, and fruit.", image:"../image/nan.jpg"},
   {dishId:17,dishname:"mangolassi",price:350,description:"mangolassi: A frozen dessert made of milk or cream, sugar, and various flavors such as vanilla, chocolate, and fruit.", image:"../image/mangolassi.jpg"},

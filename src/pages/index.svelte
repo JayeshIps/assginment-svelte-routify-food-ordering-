@@ -7,7 +7,6 @@
     import { onMount } from "svelte";
     import * as _ from 'lodash'
   
-
   const handleSubmit = (item) => {
   const existingItemIndex = $CartStore.findIndex((cartItem) => cartItem.dishId === item.dishId);
   if (existingItemIndex !== -1) {
@@ -44,9 +43,7 @@
   }
 };
 
-
-   
-    const images = [
+const images = [
       "../image/slide3.avif",
       "../image/slide2.avif",
       "../image/slide5.avif",
