@@ -30,10 +30,10 @@
   };
 </script>
 
-<div class="w-full p-6 grid md:grid-cols-2 md:gap:24 ">
-  <div class="ml-auto mr-auto w-full  max-w-md  ">
+<div class="w-full  p-6 grid md:grid-cols-2 md:gap:24 gap-24">
+  <div class="w-full  ">
       
-            <form on:submit|preventDefault={addFeedBack} class="bg-white shadow-md rounded border-8 border-double   w-full hover:border-yellow-500"  action="#">
+            <form on:submit|preventDefault={addFeedBack} class="bg-white shadow-md rounded border-8 border-double h-full   w-full hover:border-yellow-500"  action="#">
 
               <Inputtext
                   name="username"
@@ -68,7 +68,7 @@
                 <div class="flex items-center rounded-b">
                     <div class="ml-auto">
                       <Button {disabled} >Submit</Button>
-                        <button type="reset"  class="text-black-500 bg-white hover:bg-yellow-500 focus:ring-4 hover:bg-red-500 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Reset</button>
+                        <button type="reset"  class="text-black-500 bg-white hover:bg-red-500 focus:ring-4 hover:bg-red-500 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -76,9 +76,9 @@
      </div>
   
             
-    <div class="mx-auto shadow-md rounded border-8 hover:border-yellow-500 border-double p-6  w-full  max-w-md ">
+    <div class="mx-auto shadow-md rounded border-8 hover:border-yellow-500 border-double p-6  w-full h-full">
             <!-- svelte-ignore a11y-missing-attribute -->
-        <iframe class="map " src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.8779361948978!2d72.49672071400717!3d23.0282536218966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e84d5c5d6ba3f%3A0x2dac1a9a5d5f34be!2sIT%20Path%20Solutions!5e0!3m2!1sen!2sin!4v1680410435695!5m2!1sen!2sin"></iframe>
+        <iframe class="map w-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.8779361948978!2d72.49672071400717!3d23.0282536218966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e84d5c5d6ba3f%3A0x2dac1a9a5d5f34be!2sIT%20Path%20Solutions!5e0!3m2!1sen!2sin!4v1680410435695!5m2!1sen!2sin"></iframe>
         
         <div class="pt-6 ">
           

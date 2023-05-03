@@ -46,22 +46,22 @@ let showMenu:boolean = false;
 					md:justify-between
 					md:mt-0  {showMenu? 'flex md:flex': 'hidden'}">
 						<!-- svelte-ignore a11y-missing-attribute -->
-						<a href="{Navigation.Home}" class="text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Home</a>
+						<a href="{Navigation.Home}" class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Home</a>
 						<!-- svelte-ignore a11y-missing-attribute -->
-						<a href="{Navigation.ViewOrder}" class="text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8"on:click={toggleNavbar} >View Order</a>
+						<a href="{Navigation.ViewOrder}" class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8"on:click={toggleNavbar} >View Order</a>
 
 						<!-- svelte-ignore a11y-missing-attribute -->
-						<a href="{Navigation.FeedBack}" class="text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Feedback</a>
+						<a href="{Navigation.FeedBack}" class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Feedback</a>
 
 						<!-- svelte-ignore a11y-missing-attribute -->
 				
 						<div class="group relative dropdown  cursor-pointer font-bold text-base  tracking-wide">
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<span class="relative text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8">Admin</span>
+							<span class="relative text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8">Admin</span>
 							<div class="group-hover:block dropdown-menu absolute hidden h-auto">
 								<ul class="top-0 w-48 bg-white shadow px-2 py-2">
-									<li><a href="{Navigation.Admin}" class="font-medium text-lg hover:text-blue-400" on:click={toggleNavbar}>Products</a></li>
-									<li><a href="{Navigation.FeedBackData}" class="font-medium text-lg hover:text-blue-400" on:click={toggleNavbar}>Feedbacks</a><li>
+									<li><a href="{Navigation.Admin}" class="font-medium text-lg " on:click={toggleNavbar}>Products</a></li>
+									<li><a href="{Navigation.FeedBackData}" class="font-medium text-lg " on:click={toggleNavbar}>Feedbacks</a><li>
 								</ul>
 							</div>
 						</div>

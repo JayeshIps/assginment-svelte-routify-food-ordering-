@@ -8,7 +8,9 @@
   import suite from '../Validation/productSuite';
   import 'toastr/build/toastr.min.css';
   import toastr from 'toastr';
-  import {DishInfoStore} from "../store/storeData"
+  import {DishInfoStore,ImageStore,handleFileChange} from "../store/storeData"
+
+  let addImage;
 
   toastr.options.timeOut = 1500;
   
@@ -55,13 +57,13 @@ const addDish = (event): void => {
   }
 
   const newDish = {
-    dishId:Dishid,
+    dishId: Dishid,
     dishname: formState.dishname,
     price: formState.price,
     description: formState.description,
-    image: event.target.image.files[0]
+    image: $ImageStore
   };
-  
+
   DishInfoStore.update(dishes => [...dishes, newDish]);
   disabled=true;
   event.target.reset();
@@ -69,6 +71,9 @@ const addDish = (event): void => {
   toastr.success('Item Added Successfully');
   toggleAddDishes();
 };
+
+
+
 
 //start delete function
 let delDishName:string = '';
@@ -80,6 +85,7 @@ function findDeleteDish(id: number, name: string): void {
   delid = id;
   delname = name;
   delDishName = delname;
+  formState.dishname=''
 }
 
 const deleteDish = (): void => {
@@ -93,12 +99,12 @@ const deleteDish = (): void => {
         _.remove(dishes, x => x.dishId === delid);
         formState.dishname = '';
         deleteError='';
+        toggleDeleteDish();
+        toastr.error('Item Deleted Successfully');
       } else {
-        deleteError="Dish name is Not Matched"
+        deleteError="Invalid Name"
       }
 
-      toggleDeleteDish();
-      toastr.error('Item Deleted Successfully');
     }
     return dishes;
   });
@@ -169,20 +175,13 @@ function saveDish() {
   });
 
   toggleEditDish();
-  
-
   EditformState.dishname='';
   EditformState.price=undefined;
   EditformState.description='';
   EditformState.image='';
 }
-// -------------------
-
-
 // End Edit function
-
 </script>
-
 <div class="w-full p-6 ">
   <div class="flex justify-start w-full">
     <button class=" bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"on:click|preventDefault={()=>{toggleAddDishes();}}>
@@ -190,6 +189,76 @@ function saveDish() {
     </button>
   </div>
 </div>
+
+<div class="w-full p-6 hidden md:block">
+  {#if $DishInfoStore.length === 0}
+    <p>Your cart is empty</p>
+  {:else}
+    <table class="w-full border-4 border-gray-400 rounded-2xl overflow-hidden text-left">
+      <thead class="bg-yellow-500 text-black font-bold">
+        <tr>
+          <th class="p-2">Image</th>
+          <th class="p-2">Dish Name</th>
+          <th class="p-2">Description</th>
+          <th class="p-2">Price</th>
+          <th class="p-2">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each $DishInfoStore as item}
+          <tr class="h-44 transition duration-400 hover:bg-slate-100 hover:shadow-xl hover:border-amber-400">
+            <td data-th="Image" class="p-2"><img src="{item.image}" class="h-24" alt="" style="width: 100px;"></td>
+            <td data-th="Name" class="p-2">{item.dishname}</td>
+            <td data-th="Description" class="p-2 overflow-hidden ">{item.description}</td>
+            <td data-th="Price" class="p-2 text-black-900 font-bold">&#8377;{item.price}</td>
+            <td data-th="Action" class="p-2">
+              <div class="group relative dropdown  cursor-pointer font-bold text-base  tracking-wide">
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <span class="relative text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8">...</span>
+                <div class="group-hover:block dropdown-menu absolute hidden h-auto">
+                  <ul class="top-0 w-48 bg-white shadow px-2 py-4">
+                    <li><button type="button" on:click = {()=>{toggleEditDish(); updateDish(item.dishId,item.dishname); }}  class="mb-4 mt-4  mb-2 text-black bg-yellow-500 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"><i class="fa fa-pencil-square" aria-hidden="true"></i>Edit</button></li>
+                    <li><button type="button" on:click = {()=>{toggleDeleteDish(); findDeleteDish(item.dishId,item.dishname);}}  class="mb-4 mt-4  mb-2 text-black bg-red-700 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"><i class="fa-solid fa-trash-can"></i>Delete</button><li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+            
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  {/if}
+</div>
+
+<div class="w-full p-6 md:hidden flex-row ">
+  {#if $DishInfoStore.length === 0}
+    <p>Your cart is empty</p>
+  {:else}
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {#each $DishInfoStore as item}
+        <div class="bg-white rounded-lg shadow-md flex flex-col">
+          <img src="{item.image}" alt="" class="h-64 md:h-96 object-cover">
+          <div class="p-4 flex-grow">
+            <h2 class="text-xl font-bold mb-2">{item.dishname}</h2>
+            <p class="text-gray-700 text-base mb-4 overflow-hidden">{item.description}</p>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xl text-red-700 font-bold ">&#8377;{item.price}</span>
+            </div>
+            <div class="group relative dropdown  cursor-pointer font-bold text-base  tracking-wide">
+             <button type="button" on:click = {()=>{toggleEditDish(); updateDish(item.dishId,item.dishname); }}  class="mb-4 mt-4  mb-2 text-white bg-yellow-500 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Edit</button>
+             <button type="button" on:click = {()=>{toggleDeleteDish(); findDeleteDish(item.dishId,item.dishname);}}  class="mb-4 mt-4  mb-2 text-white bg-red-700 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Delete</button>
+            </div>
+          </div>
+        </div>
+      {/each}
+    </div>
+  {/if}
+</div>
+
+
+
+
 <!-- start Add Dishes Form -->
 <div class="{adddish ? ' ':'hidden'} z-[+2] h-screen top-0 left-0 bottom-0 right-0  fixed  backdrop-blur-md">
   <div class="pt-10  ml-auto mr-auto w-full h-full max-w-md md:h-auto ">
@@ -225,10 +294,10 @@ function saveDish() {
                 validityclass={cn("description")}
             />
             
-              <div>
-                <label for="image" class="block text-black-700 text-sm font-bold mb-2 ml-2 pt-2">Image:</label><br>
-                <input type="file" id="image" name="image" accept="image/*">
-              </div>
+            <div>
+              <label for="image" class="block text-black-700 text-sm font-bold mb-2 ml-2 pt-2">Image:</label><br>
+              <input type="file" on:change={()=>{handleFileChange(addImage)}} bind:files={addImage} id="image" name="image">
+            </div>
               
 
               <div class="flex items-center rounded-b">
@@ -242,59 +311,12 @@ function saveDish() {
 </div>
 <!-- end Add Dishes Form -->
 
-<div class="w-full p-6">
-  {#if $DishInfoStore.length === 0}
-    <p>Your cart is empty</p>
-  {:else}
-    <table class="w-full border-4 border-gray-400 rounded-2xl overflow-hidden text-left">
-      <thead class="bg-gray-900 text-white font-bold">
-        <tr>
-          <th class="p-2">Image</th>
-          <th class="p-2">Dish Name</th>
-          <th class="p-2">Description</th>
-          <th class="p-2">Price</th>
-          <th class="p-2">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each $DishInfoStore as item}
-          <tr class="h-44 transition duration-400 hover:bg-slate-100 hover:shadow-xl hover:border-amber-400">
-            <td data-th="Image" class="p-2"><img src="{item.image}" class="h-24" alt="" style="width: 100px;"></td>
-            <td data-th="Name" class="p-2">{item.dishname}</td>
-            <td data-th="Description" class="p-2">{item.description}</td>
-            <td data-th="Price" class="p-2">${item.price}</td>
-            <td data-th="Action" class="p-2">
-              <div class="group relative dropdown  cursor-pointer font-bold text-base  tracking-wide">
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <span class="relative text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8">...</span>
-                <div class="group-hover:block dropdown-menu absolute hidden h-auto">
-                  <ul class="top-0 w-48 bg-white shadow px-2 py-4">
-                    <li><button type="button" on:click = {()=>{toggleEditDish(); updateDish(item.dishId,item.dishname); }}  class="font-medium text-lg hover:bg-yellow-500 "><i class="fa fa-pencil-square" aria-hidden="true"></i>Edit</button></li>
-                    <li><button type="button" on:click = {()=>{toggleDeleteDish(); findDeleteDish(item.dishId,item.dishname);}}  class="font-medium text-lg  hover:bg-red-500 "><i class="fa-solid fa-trash-can"></i>Delete</button><li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  {/if}
-</div>
-
-
-
-
-
-
-      
 <!-- Start Delete From -->
   <div class="{deletedish ? ' ':'hidden'} z-[+2] w-full h-screen top-0 left-0 bottom-0 right-0 fixed  backdrop-blur-md">
     
     <div class="pt-10   h-full ml-auto mr-auto w-full max-w-md md:h-auto  ">
       
-      <form class="space-y-6 bg-white shadow-md rounded border-8 border-double" action="#">
+      <form class="space-y-6 bg-white shadow-md rounded border-8 border-double"  action="#">
         <p class="text-black font-bold text-2xl py-5 ml-5">Delete - {delDishName} </p>
         <div class="mb-4">
           <Inputtext
@@ -307,18 +329,19 @@ function saveDish() {
           validityclass={cn("dishname")}
           />
         </div>
+        <span class="text-red">{deleteError}</span>
         <div class="flex justify-end gap-2 pb-5 ">
           
             <button type="submit" on:click|preventDefault={()=>{deleteDish();}} class="btn bg-red-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
-            <button type="button" on:click={toggleDeleteDish}   class="btn hover:bg-red-500 bg-white text-black font-italic py-2 px-4 mr-4 rounded focus:outline-none focus:shadow-outline" >Cancel</button>
+            <button type="button" on:click={toggleDeleteDish}   class="btn hover:bg-red-500 bg-white text-black font-bold py-2 px-4 mr-4 rounded focus:outline-none focus:shadow-outline" >Cancel</button>
         </div>
       </form>
     </div>
   </div>
   <!-- End Delete From -->
 
-  <!-- Start Edit From -->
   
+  <!-- Start Edit From -->
   <div class="{editdish ? ' ':'hidden'} z-[+2]  h-screen top-0 left-0 bottom-0 right-0  fixed  backdrop-blur-md">
     <div class="pt-10  ml-auto mr-auto w-full h-full max-w-md md:h-auto  ">
         <form on:submit|preventDefault={saveDish}  class="bg-white shadow-md rounded border-8 border-double pt-10  w-full hover:border-yellow-500 "   action="#">
@@ -363,41 +386,12 @@ function saveDish() {
             <div class="flex justify-end gap-2 pb-5 ">
               <!-- svelte-ignore missing-declaration -->
               <Button {disabled}>Update</Button>
-              <button on:click={()=>{toggleEditDish();}} class="hover:bg-red-500 btn bg-white text-black font-italic py-2 px-4 mr-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                Cancel    
-              </button>
+              
+              <button type="button" on:click={()=>{toggleEditDish();}}  class="mb-4 mt-4 mx-1 mb-2 text-black hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" >Cancel</button>
             </div>
         </form>
   </div>
 </div>
-
-  <!-- End Edit From -->
-
-
-
-  <style>
-  @media (max-width: 640px) {
-  table {
-      overflow-x: auto;
-      white-space: nowrap;
-      width: 100%;
-  }
-  thead{
-      display: none;
-  }
-  td::before {
-      content: attr(data-th);
-      float: left;
-      margin-right: 20px;
-      color: black;
-      font-weight: bold;
-  }
-  td {
-      display: block;
-      text-align: right;
-  }
-  td div{
-      float: right;
-  }
-}
+<!-- End Edit From -->
+<style>
 </style>
