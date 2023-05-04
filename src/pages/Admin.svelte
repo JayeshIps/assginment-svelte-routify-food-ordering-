@@ -1,5 +1,5 @@
 <script lang="ts">
-  import * as _ from 'lodash';
+ import * as _ from 'lodash';
   import classnames from "vest/classnames";
   import Button from "../components/button.svelte";
   import Inputarea from "../components/inputarea.svelte";
@@ -8,14 +8,15 @@
   import suite from '../Validation/productSuite';
   import 'toastr/build/toastr.min.css';
   import toastr from 'toastr';
-  import {DishInfoStore,ImageStore,handleFileChange} from "../store/storeData"
-
+  import {DishInfoStore} from "../store/storeData"
+  import { ImageStore } from '../store/imagestore';
+  import Inputfile from '../components/inputfile.svelte';
   let addImage;
 
   toastr.options.timeOut = 1500;
   
 
-  let formState : {dishname? : string, price? : number, description? : string, image? : any} = {}; 
+  let formState : {dishname? : string, price? : number, description? : string, image? : string} = {}; 
   let result = suite.get();
   const handleChange = (name) => {    
     result = suite(formState,name)
@@ -29,7 +30,7 @@
 
   $: disabled = !result.isValid();
 
-  let EditformState : {dishname? : string, price? : number, description? : string, image? : any} = {}; 
+  let EditformState : {dishname? : string, price? : number, description? : string, image? : string} = {}; 
   const EdithandleChange = (name) => {    
     result = suite(EditformState,name)
   };
@@ -48,32 +49,32 @@
 
 const addDish = (event): void => {
   event.preventDefault();
-
   let Dishid = 1;
   let dishData = $DishInfoStore;
-  if(_.last(dishData))
-  {
-    Dishid=_.last(dishData).dishId+1;
-  }
-
-  const newDish = {
-    dishId: Dishid,
-    dishname: formState.dishname,
-    price: formState.price,
-    description: formState.description,
-    image: $ImageStore
-  };
-
-  DishInfoStore.update(dishes => [...dishes, newDish]);
-  disabled=true;
-  event.target.reset();
-  suite.reset();
-  toastr.success('Item Added Successfully');
-  toggleAddDishes();
+    if(_.last(dishData))
+    {
+      Dishid=_.last(dishData).dishId+1;
+    }
+    const newDish = {
+      dishId: Dishid,
+      dishname: formState.dishname,
+      price: formState.price,
+      description: formState.description,
+      image: $ImageStore
+    };
+  
+    DishInfoStore.update(dishes => [...dishes, newDish]);
+    disabled=true;
+    event.target.reset();
+    suite.reset();
+    toastr.success('Item Added Successfully');
+  
+    toggleAddDishes();
+    formState.dishname='';
+    formState.price=undefined;
+    formState.description='';
+    ImageStore.set('')
 };
-
-
-
 
 //start delete function
 let delDishName:string = '';
@@ -138,7 +139,6 @@ function toggleEditDish(){
   }
 }
 
-// --------------
 let editDishName='';
 function updateDish(id:number,name:string)
 {
@@ -161,14 +161,18 @@ let EditId: any = '';
 function saveDish() {
   DishInfoStore.update(dishes => {
     let SaveItem = _.find(dishes, n => n.dishId === EditId); 
-    console.log(SaveItem);
-    
     if(SaveItem)
     {
       SaveItem.dishname = EditformState.dishname;
       SaveItem.price = EditformState.price;
       SaveItem.description = EditformState.description;
-      SaveItem.image = EditformState.image;
+      if(SaveItem.image == EditformState.image){
+        SaveItem.image = EditformState.image;
+      }
+      else{
+        SaveItem.image = $ImageStore;
+        ImageStore.set('');
+      }
       toastr.success('Item Updated Successfully');
     }
     return dishes;
@@ -194,7 +198,7 @@ function saveDish() {
   {#if $DishInfoStore.length === 0}
     <p>Your cart is empty</p>
   {:else}
-    <table class="w-full border-4 border-gray-400 rounded-2xl overflow-hidden text-left">
+    <table class="w-full   rounded-2xl text-left">
       <thead class="bg-yellow-500 text-black font-bold">
         <tr>
           <th class="p-2">Image</th>
@@ -206,7 +210,7 @@ function saveDish() {
       </thead>
       <tbody>
         {#each $DishInfoStore as item}
-          <tr class="h-44 transition duration-400 hover:bg-slate-100 hover:shadow-xl hover:border-amber-400">
+          <tr class=" transition duration-400 hover:bg-slate-100 hover:shadow-xl hover:border-amber-400">
             <td data-th="Image" class="p-2"><img src="{item.image}" class="h-24" alt="" style="width: 100px;"></td>
             <td data-th="Name" class="p-2">{item.dishname}</td>
             <td data-th="Description" class="p-2 overflow-hidden ">{item.description}</td>
@@ -216,9 +220,9 @@ function saveDish() {
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <span class="relative text-black font-bold hover:text-blue-400 px-4 md:px-0 md:ml-8 md:mr-8">...</span>
                 <div class="group-hover:block dropdown-menu absolute hidden h-auto">
-                  <ul class="top-0 w-48 bg-white shadow px-2 py-4">
-                    <li><button type="button" on:click = {()=>{toggleEditDish(); updateDish(item.dishId,item.dishname); }}  class="mb-4 mt-4  mb-2 text-black bg-yellow-500 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"><i class="fa fa-pencil-square" aria-hidden="true"></i>Edit</button></li>
-                    <li><button type="button" on:click = {()=>{toggleDeleteDish(); findDeleteDish(item.dishId,item.dishname);}}  class="mb-4 mt-4  mb-2 text-black bg-red-700 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"><i class="fa-solid fa-trash-can"></i>Delete</button><li>
+                  <ul class="top-0 w-48 bg-white shadow px-2 ">
+                    <li><button type="button" on:click = {()=>{toggleEditDish(); updateDish(item.dishId,item.dishname); }}  class="w-28 mb-2 text-black bg-yellow-500 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"><i class="fa fa-pencil-square mx-2" aria-hidden="true"></i>Edit</button></li>
+                    <li><button type="button" on:click = {()=>{toggleDeleteDish(); findDeleteDish(item.dishId,item.dishname);}}  class="w-28 mb-2 text-black bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"><i class="fa-solid fa-trash-can mx-2"></i>Delete</button><li>
                   </ul>
                 </div>
               </div>
@@ -294,16 +298,19 @@ function saveDish() {
                 validityclass={cn("description")}
             />
             
-            <div>
-              <label for="image" class="block text-black-700 text-sm font-bold mb-2 ml-2 pt-2">Image:</label><br>
-              <input type="file" on:change={()=>{handleFileChange(addImage)}} bind:files={addImage} id="image" name="image">
-            </div>
-              
+            <Inputfile
+              name="image"
+              label="image"
+              bind:value={formState.image}
+              onInput={handleChange}
+              messages={[... result.getErrors("image")]}
+              validityclass={cn("image")}
+            />
 
               <div class="flex items-center rounded-b">
                   <div class="ml-auto">
                     <Button {disabled}>Submit</Button>
-                      <button type="button" on:click={toggleAddDishes}  class="mb-2 mx-1 text-black-500 bg-white hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Reset</button>
+                      <button type="button" on:click={toggleAddDishes}  class="mb-2 mx-1 text-black-500 bg-white hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancel</button>
                   </div>
               </div>
           </form>
@@ -316,7 +323,7 @@ function saveDish() {
     
     <div class="pt-10   h-full ml-auto mr-auto w-full max-w-md md:h-auto  ">
       
-      <form class="space-y-6 bg-white shadow-md rounded border-8 border-double"  action="#">
+      <form class="space-y-6 bg-white shadow-md rounded border-8 border-double hover:border-yellow-500"  action="#">
         <p class="text-black font-bold text-2xl py-5 ml-5">Delete - {delDishName} </p>
         <div class="mb-4">
           <Inputtext
@@ -333,7 +340,7 @@ function saveDish() {
         <div class="flex justify-end gap-2 pb-5 ">
           
             <button type="submit" on:click|preventDefault={()=>{deleteDish();}} class="btn bg-red-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
-            <button type="button" on:click={toggleDeleteDish}   class="btn hover:bg-red-500 bg-white text-black font-bold py-2 px-4 mr-4 rounded focus:outline-none focus:shadow-outline" >Cancel</button>
+            <button type="button" on:click={toggleDeleteDish}   class="btn bg-white text-black  py-2 px-4 mr-4 rounded focus:outline-none focus:shadow-outline" >Cancel</button>
         </div>
       </form>
     </div>
@@ -377,21 +384,22 @@ function saveDish() {
               validityclass={cn("description")}
           />
           
-            <div>
-              <label for="image" class="block text-black-700 text-sm font-bold mb-2 ml-5">Image:</label><br>
-              <input type="file" id="image" name="image" accept="image/*" required>
-            </div>
+            <Inputfile
+              name="image"
+              label="image"
+              bind:value={EditformState.image}
+              onInput={EdithandleChange}
+              messages={[... result.getErrors("image")]}
+              validityclass={cn("image")}
+            />
             
-
             <div class="flex justify-end gap-2 pb-5 ">
               <!-- svelte-ignore missing-declaration -->
               <Button {disabled}>Update</Button>
               
-              <button type="button" on:click={()=>{toggleEditDish();}}  class="mb-4 mt-4 mx-1 mb-2 text-black hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" >Cancel</button>
+              <button type="button" on:click={()=>{toggleEditDish();}}  class="mb-4 mt-4 mx-1 mb-2 text-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" >Cancel</button>
             </div>
         </form>
   </div>
 </div>
 <!-- End Edit From -->
-<style>
-</style>

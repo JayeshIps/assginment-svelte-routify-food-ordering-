@@ -5,5 +5,5 @@ export enum Navigation {
     FeedBack = '/Feedback',
     Admin = '/Admin',
     FeedBackData='/feedbackData',
-    
+    Cart='/cart',
 }

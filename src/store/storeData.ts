@@ -62,15 +62,10 @@ export const CartStore=writable([
   {cartId:1,dishId:1,quantity:1},
   {cartId:2,dishId:2,quantity:1},
   {cartId:3,dishId:3,quantity:1},
-  {cartId:4,dishId:4,quantity:1},
+
 ]);
 
-export const ImageStore = writable('');
-
-export function handleFileChange(image){
-  let reader = new FileReader();
-  reader.readAsDataURL(image[0]);
-  reader.addEventListener("load",function (){
-    ImageStore.update(f => reader.result as string)
-  });
-}
+export const OrderStore=writable([
+  {orderId:1,dishId:1,quantity:1},
+  {orderId:2,dishId:2,quantity:2},
+]);
