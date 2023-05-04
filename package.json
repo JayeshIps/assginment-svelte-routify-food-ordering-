@@ -28,14 +28,12 @@
     "svelte-check": "^3.0.0",
     "svelte-preprocess": "^5.0.0",
     "tslib": "^2.5.0",
-    "typescript": "^4.9.0"
+    "typescript": "^4.9.0",
+    "vest": "^4.6.9"
   },
   "dependencies": {
-    "@roxi/routify": "^2.18.12",
-    "react-toastify": "^9.1.2",
+    "lodash": "^4.17.21",
     "sirv-cli": "^2.0.0",
-    "svelte-routing": "^1.6.0",
-    "toastr": "^2.1.4",
-    "vest": "^4.6.9"
+    "toastr": "^2.1.4"
   }
 }

@@ -4,11 +4,11 @@
 
 <div class="w-full p-6 hidden md:block ">
     <table class='w-full rounded-lg bg-white divide-y divide-gray-300 overflow-hidden'>
-              <thead class="bg-gray-900">
-                  <tr class="text-white text-left">
-                    <th class="font-semibold text-sm py-5"> Name </th>
-                    <th class="font-semibold text-sm py-5 "> Email </th>
-                    <th class="font-semibold text-sm py-5 "> Massages </th>
+              <thead class="bg-yellow-500 ">
+                  <tr class="text-black text-left font-bold">
+                    <th class="text-sm py-5"> Name </th>
+                    <th class="text-sm py-5 "> Email </th>
+                    <th class="text-sm py-5 "> Massages </th>
                    </tr>
                 </thead>
 
@@ -18,15 +18,15 @@
                   <td data-th="Names" class="px-6 py-4">
                       <div class="flex items-center space-x-3">
                             <div>
-                              <p>{item.name} </p>   
+                              <p class=" text-md ">{item.name} </p>   
                           </div>
                       </div>
                   </td>
                   <td data-th="Email" class="px-6 py-4">
-                      <p class="text-gray-500 text-sm font-semibold tracking-wide"> {item.email} </p>
+                      <p class=" text-md "> {item.email} </p>
                   </td>
                   <td data-th="Message" class="px-6 py-4"> 
-                    <p class="text-gray-500 text-sm font-semibold tracking-wide overflow-hidden ">{item.Message}</p>
+                    <p class="text-md overflow-hidden ">{item.Message}</p>
                   </td>
                 </tr>
               {/each}

@@ -67,7 +67,7 @@ let showMenu:boolean = false;
 						</div>
 
 						<li class=" md:block hidden">
-							<a href="{Navigation.ViewOrder}" class="text-white font-medium text-lg hover:text-gray-200" on:click={toggleNavbar}>
+							<a href="{Navigation.Cart}" class="text-white font-medium text-lg hover:text-gray-200" on:click={toggleNavbar}>
 							  <span class="relative inline-block">
 								<i class="fa-solid fa-cart-shopping text-black text-2xl"></i>
 								<span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">{totalItem}</span>

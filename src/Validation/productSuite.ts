@@ -26,6 +26,10 @@ const suite = create((data = {}, currentField) => {
     test('description', 'description should not contain numerical characters', () => {
         enforce(data.description).matches(/^[^0-9]*$/);
       });
+
+      test("image", "This Field is Required.", () => {
+        enforce(data.image).isNotBlank();
+      });
     
 });
 
