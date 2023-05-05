@@ -70,11 +70,16 @@ const addDish = (event): void => {
     toastr.success('Item Added Successfully');
   
     toggleAddDishes();
-    formState.dishname='';
-    formState.price=undefined;
-    formState.description='';
     ImageStore.set('')
 };
+
+const clearform=()=>{
+  
+  formState.dishname='';
+  formState.price=undefined;
+  formState.description='';
+  formState.image='';
+}
 
 //start delete function
 let delDishName:string = '';
@@ -239,7 +244,7 @@ function saveDish() {
   {#if $DishInfoStore.length === 0}
     <p>Your cart is empty</p>
   {:else}
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 hover:border-gray-900">
       {#each $DishInfoStore as item}
         <div class="bg-white rounded-lg shadow-md flex flex-col">
           <img src="{item.image}" alt="" class="h-64 md:h-96 object-cover">
@@ -310,7 +315,7 @@ function saveDish() {
               <div class="flex items-center rounded-b">
                   <div class="ml-auto">
                     <Button {disabled}>Submit</Button>
-                      <button type="button" on:click={toggleAddDishes}  class="mb-2 mx-1 text-black-500 bg-white hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancel</button>
+                      <button type="button" on:click={()=>{toggleAddDishes();clearform();}}  class="mb-2 mx-1 text-black-500 bg-white hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancel</button>
                   </div>
               </div>
           </form>

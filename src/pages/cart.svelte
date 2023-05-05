@@ -81,14 +81,14 @@
                 <td data-th="Name" class="p-2">{getDishData(item.dishId).dishname}</td>
                 <td data-th="Description" class="p-2 overflow-hidden ">{getDishData(item.dishId).description}</td>
                 <td data-th="Quantity" class="p-2">
-                  <button class="bg-blue-600 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement(item.cartId)}>−</button>
+                  <button class="bg-gray-700 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement(item.cartId)}>−</button>
                   {item.quantity}
-                  <button class="bg-blue-600 px-2 py-1 rounded-md ml-2 text-white font-extrabold" on:click={() => increment(item.cartId)}>+</button>
+                  <button class="bg-gray-700 px-2 py-1 rounded-md ml-2 text-white font-extrabold" on:click={() => increment(item.cartId)}>+</button>
                 </td>
                 <td data-th="Price" class="p-2 font-bold text-lg text-black-700">&#8377;{getDishData(item.dishId).price * item.quantity}</td>
                 
                 <td data-th="PlaceOrder" class="p-2">
-                    <button type="button" on:click = {()=>orderSubmit(item.cartId)} class="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">PlaceOrder</button>
+                    <button type="button" on:click = {()=>orderSubmit(item.cartId)} class="bg-gray-700  hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">PlaceOrder</button>
                 </td>
   
                 <td data-th="Delete" class="p-2">
@@ -111,13 +111,16 @@
             <p class="text-gray-700 text-base overflow-hidden mb-4">{getDishData(item.dishId).description}</p>
             <div class="flex justify-between items-center">
               <div class="flex items-center">
-                <button class="bg-blue-600 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement(item.cartId)}>−</button>
+                <button class="bg-gray-700  px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement(item.cartId)}>−</button>
                 <p class="text-gray-700 font-bold text-lg">{item.quantity}</p>
-                <button class="bg-blue-600 px-2 py-1 rounded-md ml-2 text-white font-extrabold" on:click={() => increment(item.cartId)}>+</button>
+                <button class="bg-gray-700  px-2 py-1 rounded-md ml-2 text-white font-extrabold" on:click={() => increment(item.cartId)}>+</button>
               </div>
               <p class="font-bold text-lg text-red-700">&#8377;{getDishData(item.dishId).price * item.quantity}</p>
             </div>
-            <button type="button" on:click={() => cartDeleteItem(item.cartId)} class="bg-gray-300 hover:bg-red-500 px-2 py-1 rounded-md mt-4"><i class="fa-solid fa-trash-can"></i> Delete</button>
+          </div>
+          <div class="md:mb-2">
+            <button type="button" on:click = {()=>orderSubmit(item.cartId)} class="bg-gray-700  hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">PlaceOrder</button>
+            <button type="button" on:click={() => cartDeleteItem(item.cartId)} class="bg-gray-700 hover:bg-red-500 px-4 py-2 text-white font-bold rounded"><i class="fa-solid fa-trash-can"></i> Delete</button>
           </div>
         </div>
       {/each}
