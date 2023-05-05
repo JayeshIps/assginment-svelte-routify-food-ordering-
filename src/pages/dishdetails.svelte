@@ -34,7 +34,7 @@ let count = 1;
 </script>
   
 <div class="w-full p-6">
-    <div class="mx-3 p-3 border-4 border-yellow-400 rounded-2xl justify-center items-center transition duration-400 cursor-default hover:bg-slate-100 hover:shadow-xl hover:border-gray-900">
+    <div class="mx-3 p-3   rounded-2xl justify-center items-center transition duration-400 cursor-default   ">
         
         <form >
             <div class="grid md:grid-cols-2 gap-3 ">
@@ -43,21 +43,21 @@ let count = 1;
                     <img class="object-cover h-64 md:h-96 w-full rounded-lg shadow-xl dark:shadow-gray-80" src="{dishDetail.image}" alt="">
                 </div>
 
-                <div class="p-6 flex ">
+                <div class="p-10 flex ">
                     <div class="h-48">
                         <div class="text-3xl font-bold py-1">
                             {dishDetail.dishname}
                         </div>
-                        <div class="text-lg py-1">
+                        <div class="text-lg py-1 overflow-hidden">
                             {dishDetail.description}
                         </div>
     
                         <div class="flex py-1">
                             <div class="text-xl font-bold">
                                 Quantity: &nbsp;
-                                <button type="button" class="bg-blue-600 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement()}>−</button>
+                                <button type="button" class="bg-gray-700 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement()}>−</button>
                                  {count}
-                               <button type="button" class="bg-blue-600 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => increment()}>+</button>
+                               <button type="button" class="bg-gray-700 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => increment()}>+</button>
                             </div>
                         </div>
 
@@ -66,7 +66,7 @@ let count = 1;
                             
                            <span>Price:</span> <td data-th="Price" class="p-2">&#8377;{dishDetail.price * count}</td>
                         </div>
-                        <button on:click={handleCart} type="button" class="bg-gray-900 text-white px-3 py-1 mt-3 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out">
+                        <button on:click={handleCart} type="button" class="bg-gray-900 text-white px-3 md:mb-6 py-1 mt-3 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out">
                             <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
                             Add to cart
                         </button>

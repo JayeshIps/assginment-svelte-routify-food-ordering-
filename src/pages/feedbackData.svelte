@@ -34,7 +34,7 @@
         </table>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 md:hidden flex-row ">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 md:hidden flex-row hover:border-gray-900 ">
     {#each $FeedBackStore as item}
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <p class="text-gray-900 text-sm font-bold mb-2">Name:</p>
@@ -48,29 +48,3 @@
   </div>
   
 
-  <style>
-    @media (max-width: 640px) {
-    table {
-        overflow-x: auto;
-        white-space: nowrap;
-        width: 100%;
-    }
-    thead{
-        display: none;
-    }
-    td::before {
-        content: attr(data-th);
-        float: left;
-        margin-right: 20px;
-        color: black;
-        font-weight: bold;
-    }
-    td {
-        display: block;
-        text-align: right;
-    }
-    td div{
-        float: right;
-    }
-  }
-  </style>

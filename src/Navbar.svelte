@@ -1,5 +1,5 @@
 <script lang="ts">
-import {Navigation} from "./enums/Nav"
+import { goto } from "@sveltech/routify";
 import { CartStore } from "./store/storeData";
 
 
@@ -46,12 +46,19 @@ let showMenu:boolean = false;
 					md:justify-between
 					md:mt-0  {showMenu? 'flex md:flex': 'hidden'}">
 						<!-- svelte-ignore a11y-missing-attribute -->
-						<a href="{Navigation.Home}" class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Home</a>
+						<!-- svelte-ignore missing-declaration -->
+						<!-- svelte-ignore a11y-click-events-have-key-events -->
+						<a on:click={$goto('/')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar} >Home</a>
+						<!-- <a on:click={$goto('./index')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Home</a> -->
 						<!-- svelte-ignore a11y-missing-attribute -->
-						<a href="{Navigation.ViewOrder}" class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8"on:click={toggleNavbar} >View Order</a>
+						<!-- svelte-ignore missing-declaration -->
+						<!-- svelte-ignore a11y-click-events-have-key-events -->
+						<a on:click={$goto('./Orderview')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar} >View Order</a>
 
 						<!-- svelte-ignore a11y-missing-attribute -->
-						<a href="{Navigation.FeedBack}" class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Feedback</a>
+						<!-- svelte-ignore missing-declaration -->
+						<!-- svelte-ignore a11y-click-events-have-key-events -->
+						<a on:click={$goto('./Feedback')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Feedback</a>
 
 						<!-- svelte-ignore a11y-missing-attribute -->
 				
@@ -60,14 +67,23 @@ let showMenu:boolean = false;
 							<span class="relative text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8">Admin</span>
 							<div class="group-hover:block dropdown-menu absolute hidden h-auto">
 								<ul class="top-0 w-48 bg-white shadow px-2 py-2">
-									<li><a href="{Navigation.Admin}" class="font-medium text-lg " on:click={toggleNavbar}>Products</a></li>
-									<li><a href="{Navigation.FeedBackData}" class="font-medium text-lg " on:click={toggleNavbar}>Feedbacks</a><li>
+									<!-- svelte-ignore a11y-missing-attribute -->
+									<!-- svelte-ignore missing-declaration -->
+									<!-- svelte-ignore a11y-click-events-have-key-events -->
+									<li><a on:click={$goto('./Admin')} class="font-medium text-lg " on:click={toggleNavbar}>Products</a></li>
+									<!-- svelte-ignore a11y-missing-attribute -->
+									<!-- svelte-ignore missing-declaration -->
+									<!-- svelte-ignore a11y-click-events-have-key-events -->
+									<li><a on:click={$goto('./feedbackData')} class="font-medium text-lg " on:click={toggleNavbar}>Feedbacks</a><li>
 								</ul>
 							</div>
 						</div>
 
-						<li class=" md:block hidden">
-							<a href="{Navigation.Cart}" class="text-white font-medium text-lg hover:text-gray-200" on:click={toggleNavbar}>
+						<li class=" md:block hidden md:mr-8">
+							<!-- svelte-ignore a11y-missing-attribute -->
+							<!-- svelte-ignore missing-declaration -->
+							<!-- svelte-ignore a11y-click-events-have-key-events -->
+							<a on:click={$goto('./cart')} class="text-white font-medium text-lg hover:text-gray-200" on:click={toggleNavbar}>
 							  <span class="relative inline-block">
 								<i class="fa-solid fa-cart-shopping text-black text-2xl"></i>
 								<span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">{totalItem}</span>

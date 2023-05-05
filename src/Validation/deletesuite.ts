@@ -3,7 +3,7 @@ import { create, test, enforce, only } from "vest";
 const deletesuite = create((data = {}, currentField) => {
     only(currentField);
   
-    test("Deldishname", "This Field is Required", () => {
+    test("Deldishname", "This field is required", () => {
         enforce(data.Deldishname).isNotBlank();
       });
     

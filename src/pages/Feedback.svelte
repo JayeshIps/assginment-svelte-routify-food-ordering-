@@ -30,15 +30,16 @@
   };
 </script>
 
-<div class="w-full  p-6 grid md:grid-cols-2 md:gap:24 gap-24">
-  <div class="w-full  ">
+<div class="w-full  p-6 grid md:grid-cols-2 md:gap:12 gap-12">
+  <div class="">
       
-            <form on:submit|preventDefault={addFeedBack} class="bg-white shadow-md rounded border-8 border-double h-full   w-full hover:border-yellow-500"  action="#">
-
+    <form on:submit|preventDefault={addFeedBack} class="bg-white shadow-md rounded border-8 border-double h-full  hover:border-yellow-500"  action="#">
+      <img src="https://doi-ds.org/images/upload/contact_us.jpg" class="h-48 w-full " alt="" srcset="">
+        
               <Inputtext
                   name="username"
-                  label="username"
-                  placeholder="Enter User Name"
+                  label="Username"
+                  placeholder="Enter user name"
                   bind:value={formState.username}
                   onInput={handleChange}
                   messages={result.getErrors("username")}
@@ -48,7 +49,7 @@
               <Inputtext
                   name="email"
                   label="Email"
-                  placeholder="adam.smith@gmail.com"
+                  placeholder="Enter email"
                   bind:value={formState.email}
                   onInput={handleChange}
                   messages={[... result.getErrors("email")]}
@@ -58,7 +59,7 @@
               <Inputarea
                   name="message"
                   label="Message"
-                  placeholder="message"
+                  placeholder="Enter message"
                   bind:value={formState.message}
                   onInput={handleChange}
                   messages={[... result.getErrors("message")]}
@@ -76,11 +77,11 @@
      </div>
   
             
-    <div class="mx-auto shadow-md rounded border-8 hover:border-yellow-500 border-double p-6  w-full h-full">
+    <div class="mx-auto shadow-md rounded border-8 hover:border-yellow-500 border-double p-6 md:p-4 w-full h-full">
             <!-- svelte-ignore a11y-missing-attribute -->
-        <iframe class="map w-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.8779361948978!2d72.49672071400717!3d23.0282536218966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e84d5c5d6ba3f%3A0x2dac1a9a5d5f34be!2sIT%20Path%20Solutions!5e0!3m2!1sen!2sin!4v1680410435695!5m2!1sen!2sin"></iframe>
+        <iframe class="map w-full h-72 " src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.8779361948978!2d72.49672071400717!3d23.0282536218966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e84d5c5d6ba3f%3A0x2dac1a9a5d5f34be!2sIT%20Path%20Solutions!5e0!3m2!1sen!2sin!4v1680410435695!5m2!1sen!2sin"></iframe>
         
-        <div class="pt-6 ">
+        <div class="pt-2">
           
           <div>
             <p class="text-black font-bold text-3xl">Reach Out to Us</p>

@@ -15,7 +15,7 @@ const suite = create((data = {}, currentField) => {
         enforce(data.username).matches(/^[^0-9]*$/);
     });
 
-    test("email","This Field is Required",()=>{
+    test("email","This field is required",()=>{
         enforce(data.email).isNotBlank();
     });
 
@@ -23,11 +23,11 @@ const suite = create((data = {}, currentField) => {
         enforce(data.email).matches(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address');
     });
 
-    test('message','This Field is Required',()=>{
+    test('message','This field is required',()=>{
         enforce(data.message).isNotBlank();
     });
    
-    test('message', 'message should not contain numerical characters', () => {
+    test('message', 'Message should not contain numerical characters', () => {
         enforce(data.message).matches(/^[^0-9]*$/);
     });
 
