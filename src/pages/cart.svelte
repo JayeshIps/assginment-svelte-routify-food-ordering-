@@ -81,9 +81,11 @@
                 <td data-th="Name" class="p-2">{getDishData(item.dishId).dishname}</td>
                 <td data-th="Description" class="p-2 overflow-hidden ">{getDishData(item.dishId).description}</td>
                 <td data-th="Quantity" class="p-2">
-                  <button class="bg-gray-700 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement(item.cartId)}>−</button>
-                  {item.quantity}
-                  <button class="bg-gray-700 px-2 py-1 rounded-md ml-2 text-white font-extrabold" on:click={() => increment(item.cartId)}>+</button>
+                  <div class="flex">
+                    <button class="bg-gray-700 px-2 py-1 rounded-md mr-2 text-white font-extrabold" on:click={() => decrement(item.cartId)}>−</button>
+                    <span> {item.quantity}</span>
+                    <button class="bg-gray-700 px-2 py-1 rounded-md ml-2 text-white font-extrabold" on:click={() => increment(item.cartId)}>+</button>
+                  </div>
                 </td>
                 <td data-th="Price" class="p-2 font-bold text-lg text-black-700">&#8377;{getDishData(item.dishId).price * item.quantity}</td>
                 

@@ -5,6 +5,11 @@
   import Inputtext from "../components/inputtext.svelte";
   import suite from "../Validation/feedbackSuite";
   import {FeedBackStore} from "../store/storeData"
+  import 'toastr/build/toastr.min.css';
+  import toastr from 'toastr';
+
+  toastr.options.timeOut = 1500;
+  
   
 
   let formState : {username? : string, email? : string, message? : string} = {}; 
@@ -27,13 +32,14 @@
     disabled=true;
     event.target.reset();
     suite.reset();
+    toastr.success('Feedback Added Successfully');
   };
 </script>
 
 <div class="w-full  p-6 grid md:grid-cols-2 md:gap:12 gap-12">
   <div class="">
       
-    <form on:submit|preventDefault={addFeedBack} class="bg-white shadow-md rounded border-8 border-double h-full  hover:border-yellow-500"  action="#">
+    <form on:submit|preventDefault={addFeedBack} class="bg-white shadow-md rounded border-8 border-double h-full  hover:border-yellow-500 p-2"  action="#">
       <img src="https://doi-ds.org/images/upload/contact_us.jpg" class="h-48 w-full " alt="" srcset="">
         
               <Inputtext

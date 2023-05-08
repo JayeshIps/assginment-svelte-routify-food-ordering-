@@ -271,7 +271,7 @@ function saveDish() {
 <!-- start Add Dishes Form -->
 <div class="{adddish ? ' ':'hidden'} z-[+2] h-screen top-0 left-0 bottom-0 right-0  fixed  backdrop-blur-md">
   <div class="pt-10  ml-auto mr-auto w-full h-full max-w-md md:h-auto ">
-          <form on:submit|preventDefault={addDish}  class="bg-white shadow-md rounded border-8 border-double pt-10 hover:border-yellow-500 w-full"  action="#">
+          <form on:submit|preventDefault={addDish}  class="bg-white shadow-md p-2 rounded border-8 border-double pt-10 hover:border-yellow-500 w-full"  action="#">
             <p class="text-black font-bold text-2xl pb-5 ml-2">Add New Dishes</p>
             <Inputtext
                 name="dishname"
@@ -328,7 +328,7 @@ function saveDish() {
     
     <div class="pt-10   h-full ml-auto mr-auto w-full max-w-md md:h-auto  ">
       
-      <form class="space-y-6 bg-white shadow-md rounded border-8 border-double hover:border-yellow-500"  action="#">
+      <form class="space-y-6 bg-white shadow-md rounded border-8 border-double p-2 hover:border-yellow-500"  action="#">
         <p class="text-black font-bold text-2xl py-5 ml-5">Delete - {delDishName} </p>
         <div class="mb-4">
           <Inputtext
@@ -356,7 +356,7 @@ function saveDish() {
   <!-- Start Edit From -->
   <div class="{editdish ? ' ':'hidden'} z-[+2]  h-screen top-0 left-0 bottom-0 right-0  fixed  backdrop-blur-md">
     <div class="pt-10  ml-auto mr-auto w-full h-full max-w-md md:h-auto  ">
-        <form on:submit|preventDefault={saveDish}  class="bg-white shadow-md rounded border-8 border-double pt-10  w-full hover:border-yellow-500 "   action="#">
+        <form on:submit|preventDefault={saveDish}  class="bg-white shadow-md rounded border-8 p-2 border-double pt-10  w-full hover:border-yellow-500 "   action="#">
           <p class="text-black font-bold text-2xl pb-5 ml-5">Edit Product-{editDishName}</p>
           
           <Inputtext
