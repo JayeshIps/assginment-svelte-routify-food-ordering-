@@ -30,7 +30,7 @@
       }
       let dish=_.find(cartData,x=>x.cartId==id)
       OrderStore.update((items) => [...items,  {orderId:orderid,dishId:dish.dishId,quantity:dish.quantity}]);
-       toastr.success('Add To Cart Successfully');
+       toastr.success('Order Placed Successfully');
     };
     
     function decrement(id:number){
