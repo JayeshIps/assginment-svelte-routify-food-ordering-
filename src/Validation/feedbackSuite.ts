@@ -11,9 +11,14 @@ const suite = create((data = {}, currentField) => {
       enforce(data.username).longerThanOrEquals(3);
     });
 
-    test('username', 'username should not contain numerical characters', () => {
+    test('username', 'Username should not contain numerical characters', () => {
         enforce(data.username).matches(/^[^0-9]*$/);
     });
+
+    test('username', 'No trailing and leading spaces', () => {
+        enforce(data.username.trim()).equals(data.username);
+    });
+
 
     test("email","This field is required",()=>{
         enforce(data.email).isNotBlank();
@@ -23,6 +28,10 @@ const suite = create((data = {}, currentField) => {
         enforce(data.email).matches(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address');
     });
 
+    test('email', 'No trailing and leading spaces', () => {
+        enforce(data.email.trim()).equals(data.email);
+    });
+
     test('message','This field is required',()=>{
         enforce(data.message).isNotBlank();
     });
@@ -30,6 +39,10 @@ const suite = create((data = {}, currentField) => {
     test('message', 'Message should not contain numerical characters', () => {
         enforce(data.message).matches(/^[^0-9]*$/);
     });
+
+    test('message', 'No trailing and leading spaces', () => {
+        enforce(data.message.trim()).equals(data.message);
+      });
 
 
     

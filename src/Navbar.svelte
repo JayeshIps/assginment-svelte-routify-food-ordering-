@@ -48,17 +48,24 @@ let showMenu:boolean = false;
 						<!-- svelte-ignore a11y-missing-attribute -->
 						<!-- svelte-ignore missing-declaration -->
 						<!-- svelte-ignore a11y-click-events-have-key-events -->
-						<a on:click={$goto('/')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar} >Home</a>
+						<div class="cursor-pointer">
+                          <a on:click={$goto('/')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar} >Home</a>
+						</div>
+						
 						<!-- <a on:click={$goto('./index')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Home</a> -->
 						<!-- svelte-ignore a11y-missing-attribute -->
 						<!-- svelte-ignore missing-declaration -->
 						<!-- svelte-ignore a11y-click-events-have-key-events -->
-						<a on:click={$goto('./Orderview')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar} >View Order</a>
+						<div class="cursor-pointer">
+							<a on:click={$goto('./Orderview')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar} >View Order</a>
+                        </div>
 
 						<!-- svelte-ignore a11y-missing-attribute -->
 						<!-- svelte-ignore missing-declaration -->
 						<!-- svelte-ignore a11y-click-events-have-key-events -->
-						<a on:click={$goto('./Feedback')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Feedback</a>
+						<div class="cursor-pointer">
+                           <a on:click={$goto('./Feedback')} class="text-black font-bold  px-4 md:px-0 md:ml-8 md:mr-8" on:click={toggleNavbar}>Feedback</a>
+						</div>
 
 						<!-- svelte-ignore a11y-missing-attribute -->
 				
@@ -79,7 +86,7 @@ let showMenu:boolean = false;
 							</div>
 						</div>
 
-						<li class=" md:block hidden md:mr-8">
+						<li class=" md:block hidden md:mr-8 cursor-pointer">
 							<!-- svelte-ignore a11y-missing-attribute -->
 							<!-- svelte-ignore missing-declaration -->
 							<!-- svelte-ignore a11y-click-events-have-key-events -->

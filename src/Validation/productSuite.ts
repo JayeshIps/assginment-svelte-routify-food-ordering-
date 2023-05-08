@@ -7,12 +7,16 @@ const suite = create((data = {}, currentField) => {
         enforce(data.dishname).isNotBlank();
       });
     
-      test("dishname", "dishname must be at least 3 characters long", () => {
+      test("dishname", "Dishname must be at least 3 characters long", () => {
         enforce(data.dishname).longerThanOrEquals(3);
       });
   
-      test('dishname', 'dishname should not contain numerical characters', () => {
+      test('dishname', 'Dishname should not contain numerical characters', () => {
           enforce(data.dishname).matches(/^[^0-9]*$/);
+      });
+
+      test('dishname', 'No trailing and leading spaces', () => {
+          enforce(data.dishname.trim()).equals(data.dishname);
       });
 
       test("price", "This field is required.", () => {
@@ -23,8 +27,12 @@ const suite = create((data = {}, currentField) => {
         enforce(data.description).isNotBlank();
       });
    
-    test('description', 'description should not contain numerical characters', () => {
+      test('description', 'Description should not contain numerical characters', () => {
         enforce(data.description).matches(/^[^0-9]*$/);
+      });
+
+      test('description', 'No trailing and leading spaces', () => {
+        enforce(data.description.trim()).equals(data.description);
       });
 
       test("image", "This field is required.", () => {
