@@ -114,6 +114,8 @@ const deleteDish = (): void => {
     }
     return dishes;
   });
+  
+  
 };
 
 // toggle form function
@@ -124,6 +126,7 @@ function toggleDeleteDish(){
 
   if(deletedish){
       document.body.classList.add('overflow-hidden');
+      
   }
   else{
       document.body.classList.remove('overflow-hidden');

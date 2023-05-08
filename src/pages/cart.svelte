@@ -31,6 +31,14 @@
       let dish=_.find(cartData,x=>x.cartId==id)
       OrderStore.update((items) => [...items,  {orderId:orderid,dishId:dish.dishId,quantity:dish.quantity}]);
        toastr.success('Order Placed Successfully');
+        
+      CartStore.update(cartitem => {
+        const index = cartitem.findIndex(x => x.cartId === id);
+        if (index !== -1) {
+          cartitem.splice(index, 1);
+        }
+        return cartitem;
+      });
     };
     
     function decrement(id:number){
