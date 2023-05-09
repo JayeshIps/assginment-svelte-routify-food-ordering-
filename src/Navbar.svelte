@@ -11,11 +11,11 @@ let showMenu:boolean = false;
 	let totalItem=0;
     $:totalItem=Object.keys($CartStore).length;
 
-	let listMenu=false;
+	
 
 </script>
 
-<div>
+<div on:mouseleave={()=>showMenu=false}>
 
 	<div class="bg-yellow-500 fixed ml-0 mr-0 w-full md:flex z-[+1]">
 		<div class="flex md:justify-around">
@@ -31,7 +31,14 @@ let showMenu:boolean = false;
             <div class="absolute right-6">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<div on:click={toggleNavbar} class="flex md:hidden absolute right-8 mt-5">
-					<i class="fa-solid fa-bars text-black text-3xl"></i>
+					<!-- svelte-ignore a11y-missing-attribute -->
+					<a on:click={$goto('./cart')} class="p-1 text-white font-medium text-lg hover:text-gray-200" on:click={toggleNavbar}>
+						<span class="relative inline-block">
+						  <i class="fa-solid fa-cart-shopping text-black text-2xl"></i>
+						  <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">{totalItem}</span>
+						</span>
+					  </a>
+					<i class=" ml-6 fa-solid fa-bars text-black text-3xl"></i>
 	            </div>
 			</div>
 			

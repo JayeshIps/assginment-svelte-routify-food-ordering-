@@ -1,39 +1,37 @@
 <script lang="ts">
- import classnames from "vest/classnames";
-  import Button from "../components/button.svelte";
-  import Inputarea from "../components/inputarea.svelte";
-  import Inputtext from "../components/inputtext.svelte";
-  import suite from "../Validation/feedbackSuite";
-  import {FeedBackStore} from "../store/storeData"
-  import 'toastr/build/toastr.min.css';
-  import toastr from 'toastr';
+import classnames from "vest/classnames";
+import Button from "../components/button.svelte";
+import Inputarea from "../components/inputarea.svelte";
+import Inputtext from "../components/inputtext.svelte";
+import suite from "../Validation/feedbackSuite";
+import {FeedBackStore} from "../store/storeData"
+import 'toastr/build/toastr.min.css';
+import toastr from 'toastr';
 
-  toastr.options.timeOut = 1500;
-  
-  
+toastr.options.timeOut = 1000;
+let formState : {username? : string, email? : string, message? : string} = {}; 
+let result = suite.get();
+const handleChange = (name) => {    
+  result = suite(formState,name)
+};
 
-  let formState : {username? : string, email? : string, message? : string} = {}; 
-  let result = suite.get();
-  const handleChange = (name) => {    
-    result = suite(formState,name)
-  };
-  $: cn = classnames(result, {
-      warning: "warning",
-      invalid: "error",
-      valid: "success"
-  }); 
-  $: disabled = !result.isValid();
+$: cn = classnames(result, {
+    warning: "warning",
+    invalid: "error",
+    valid: "success"
+}); 
+$: disabled = !result.isValid();
 
-  const addFeedBack = (event):void => {
-    event.preventDefault();
-    const data={name:formState.username,email:formState.email,Message:formState.message}
-    console.log(data);
-    FeedBackStore.update(Feedbacks=>[...Feedbacks,data]);
-    disabled=true;
-    event.target.reset();
-    suite.reset();
-    toastr.success('Feedback Added Successfully');
-  };
+const addFeedBack = (event):void => {
+  event.preventDefault();
+  const data={name:formState.username,email:formState.email,Message:formState.message}
+  console.log(data);
+  FeedBackStore.update(Feedbacks=>[...Feedbacks,data]);
+  disabled=true;
+  event.target.reset();
+  suite.reset();
+  toastr.success('Feedback Added Successfully');
+};
 </script>
 
 <div class="w-full  p-6 grid md:grid-cols-2 md:gap:12 gap-12">
