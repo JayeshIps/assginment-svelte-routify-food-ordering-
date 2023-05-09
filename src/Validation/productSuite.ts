@@ -11,7 +11,7 @@ const suite = create((data = {}, currentField) => {
         enforce(data.dishname).longerThanOrEquals(3);
       });
   
-      test('dishname', 'Dishname should not contain numerical characters', () => {
+      test('dishname', 'Numerical characters not allowed', () => {
           enforce(data.dishname).matches(/^[^0-9]*$/);
       });
 
@@ -27,7 +27,7 @@ const suite = create((data = {}, currentField) => {
         enforce(data.description).isNotBlank();
       });
    
-      test('description', 'Description should not contain numerical characters', () => {
+      test('description', 'Numerical characters not allowed', () => {
         enforce(data.description).matches(/^[^0-9]*$/);
       });
 

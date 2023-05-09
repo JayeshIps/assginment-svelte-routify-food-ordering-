@@ -1,11 +1,11 @@
 <script lang="ts">
-    import {DishInfoStore} from "../store/storeData"
-    import { CartStore } from "../store/storeData"
+    import {DishInfoStore,CartStore} from "../store/storeData"
     import { url } from '@sveltech/routify';
     import 'toastr/build/toastr.min.css';
     import toastr from 'toastr';
     import { onMount } from "svelte";
     import * as _ from 'lodash'
+    toastr.options.timeOut = 1000;
   
   const handleSubmit = (item) => {
   const existingItemIndex = $CartStore.findIndex((cartItem) => cartItem.dishId === item.dishId);

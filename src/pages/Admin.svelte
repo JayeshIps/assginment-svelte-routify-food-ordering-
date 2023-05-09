@@ -11,9 +11,9 @@
   import {DishInfoStore} from "../store/storeData"
   import { ImageStore } from '../store/imagestore';
   import Inputfile from '../components/inputfile.svelte';
-  let addImage;
+  
 
-  toastr.options.timeOut = 1500;
+  toastr.options.timeOut = 1000;
   
 
   let formState : {dishname? : string, price? : number, description? : string, image? : string} = {}; 
@@ -34,7 +34,6 @@
   const EdithandleChange = (name) => {    
     result = suite(EditformState,name)
   };
-  
 
   let adddish:boolean=false;
   function toggleAddDishes(){
@@ -75,23 +74,23 @@ const addDish = (event): void => {
 
 const clearform=()=>{
   
-  formState.dishname='';
+  formState.dishname=null;
   formState.price=undefined;
-  formState.description='';
-  formState.image='';
+  formState.description=null;
+  formState.image=null;
 }
 
 //start delete function
-let delDishName:string = '';
+let delDishName:string = null;
 let delid: number | undefined;
-let delname:string = '';
-let deleteError:string=''
+let delname:string = null;
+
 
 function findDeleteDish(id: number, name: string): void {
   delid = id;
   delname = name;
   delDishName = delname;
-  formState.dishname=''
+  formState.dishname='';
 }
 
 const deleteDish = (): void => {
@@ -104,18 +103,12 @@ const deleteDish = (): void => {
       if (deleteName === delDishName) {
         _.remove(dishes, x => x.dishId === delid);
         formState.dishname = '';
-        deleteError='';
         toggleDeleteDish();
         toastr.error('Item Deleted Successfully');
-      } else {
-        deleteError="Invalid Name"
-      }
-
+      } 
     }
     return dishes;
   });
-  
-  
 };
 
 // toggle form function
@@ -187,10 +180,10 @@ function saveDish() {
   });
 
   toggleEditDish();
-  EditformState.dishname='';
+  EditformState.dishname=null;
   EditformState.price=undefined;
-  EditformState.description='';
-  EditformState.image='';
+  EditformState.description=null;
+  EditformState.image=null;
 }
 // End Edit function
 </script>
@@ -318,7 +311,7 @@ function saveDish() {
               <div class="flex items-center rounded-b">
                   <div class="ml-auto">
                     <Button {disabled}>Submit</Button>
-                      <button type="button" on:click={()=>{toggleAddDishes();clearform();}}  class="mb-2 mx-1 text-black-500 bg-white hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancel</button>
+                      <button type="reset" on:click={()=>{toggleAddDishes();clearform();}}  class="mb-2 mx-1 text-black-500 bg-white hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancel</button>
                   </div>
               </div>
           </form>
@@ -344,11 +337,10 @@ function saveDish() {
           validityclass={cn("dishname")}
           />
         </div>
-        <span class="text-red">{deleteError}</span>
+       
         <div class="flex justify-end gap-2 pb-5 ">
-          
-            <button type="submit" on:click|preventDefault={()=>{deleteDish();}} class="btn bg-red-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
-            <button type="button" on:click={toggleDeleteDish}   class="btn bg-white text-black  py-2 px-4 mr-4 rounded focus:outline-none focus:shadow-outline" >Cancel</button>
+          <button type="submit" on:click|preventDefault={()=>{deleteDish();}} class="btn bg-red-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
+          <button type="button" on:click={toggleDeleteDish}   class="btn bg-white text-black  py-2 px-4 mr-4 rounded focus:outline-none focus:shadow-outline" >Cancel</button>
         </div>
       </form>
     </div>

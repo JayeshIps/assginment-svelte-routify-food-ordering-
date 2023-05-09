@@ -1,75 +1,78 @@
 <script lang="ts">
-    import { CartStore } from "../store/storeData";
-    import { DishInfoStore ,OrderStore} from "../store/storeData";
-    import * as _ from 'lodash';
-    import 'toastr/build/toastr.min.css';
-    import toastr from 'toastr';
-  
-    $:dishData=$DishInfoStore;
-    $:cartData=$CartStore;
-    $:orderData=$OrderStore;
-  
-    function getDishData(id)
-    {
-      return _.find(dishData,n=>n.dishId==id)
-    }
-      
-    function increment(id:number){
-      CartStore.update(quantity=>{
-        let updateQuantity= _.find(quantity,{cartId:id})
-        updateQuantity.quantity++;
-        return quantity;
-      })
-    }
-  
-  const orderSubmit = (id) => {
-     let orderid=1
-      let lastdish=_.last(orderData)
-      if(lastdish){
-        orderid=lastdish.orderId+1;
-      }
-      let dish=_.find(cartData,x=>x.cartId==id)
-      OrderStore.update((items) => [...items,  {orderId:orderid,dishId:dish.dishId,quantity:dish.quantity}]);
-       toastr.success('Order Placed Successfully');
-        
-      CartStore.update(cartitem => {
-        const index = cartitem.findIndex(x => x.cartId === id);
-        if (index !== -1) {
-          cartitem.splice(index, 1);
-        }
-        return cartitem;
-      });
-    };
+import { CartStore } from "../store/storeData";
+import { DishInfoStore ,OrderStore} from "../store/storeData";
+import * as _ from 'lodash';
+import 'toastr/build/toastr.min.css';
+import toastr from 'toastr';
+
+toastr.options.timeOut = 1000;
+
+$:dishData=$DishInfoStore;
+$:cartData=$CartStore;
+$:orderData=$OrderStore;
+
+function getDishData(id)
+{
+  return _.find(dishData,n=>n.dishId==id)
+}
     
-    function decrement(id:number){
-    CartStore.update(quantity=>{
-      let updateQuantity= _.find(quantity,{cartId:id})
-      if (updateQuantity.quantity > 1) {
-        updateQuantity.quantity--;
-      }
-      return quantity;
-    })
+function increment(id:number){
+  CartStore.update(quantity=>{
+    let updateQuantity= _.find(quantity,{cartId:id})
+    updateQuantity.quantity++;
+    return quantity;
+  })
+}
+  
+const orderSubmit = (id) => {
+  let orderid=1
+  let lastdish=_.last(orderData)
+  if(lastdish){
+    orderid=lastdish.orderId+1;
   }
-  
-  const cartDeleteItem = (id: number) => {
-    CartStore.update(cartitem => {
-      const index = cartitem.findIndex(x => x.cartId === id);
-      if (index !== -1) {
-        cartitem.splice(index, 1);
-        toastr.error('Deleted Successfully');
-      }
-      return cartitem;
-    });
-  };
-  
-  
-  </script>
+  let dish=_.find(cartData,x=>x.cartId==id)
+  OrderStore.update((items) => [...items,  {orderId:orderid,dishId:dish.dishId,quantity:dish.quantity}]);
+    toastr.success('Order Placed Successfully');
     
+  CartStore.update(cartitem => {
+    const index = cartitem.findIndex(x => x.cartId === id);
+    if (index !== -1) {
+      cartitem.splice(index, 1);
+    }
+    return cartitem;
+  });
+};
+    
+function decrement(id:number){
+CartStore.update(quantity=>{
+  let updateQuantity= _.find(quantity,{cartId:id})
+  if (updateQuantity.quantity > 1) {
+    updateQuantity.quantity--;
+  }
+  return quantity;
+})
+}
   
+const cartDeleteItem = (id: number) => {
+ CartStore.update(cartitem => {
+  const index = cartitem.findIndex(x => x.cartId === id);
+  if (index !== -1) {
+    cartitem.splice(index, 1);
+    toastr.error('Deleted Successfully');
+  }
+  return cartitem;
+ });
+};
+</script>
+
+{#if $CartStore.length === 0}
+  <div class="flex justify-center w-full">
+    <img src="../image/cart.png" class="object-cover w-1/2" alt="">
+  </div>
+  {:else}
+    
+
   <div class="w-full p-6 hidden md:block">
-      {#if $CartStore.length === 0}
-        <p>Your cart is empty</p>
-      {:else}
         <table class="w-full border-4 border-gray-400 rounded-2xl overflow-hidden text-left">
           <thead class="bg-yellow-500 text-black font-bold">
             <tr>
@@ -109,12 +112,11 @@
             {/each}
           </tbody>
         </table>
-      {/if}
-    </div>
-  
-    <div class="px-2 py-1 md:hidden flex-row">
-      {#each $CartStore as item}
-        <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6">
+      </div>
+      
+      <div class="px-2 py-1 md:hidden flex-row ">
+        {#each $CartStore as item}
+        <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6 hover:bg-gray-100 hover:shadow-lg hover:text-gray-900 hover:border-gray-900 border-2">
           <img class="w-full h-64 md:h-96 object-cover" src="{getDishData(item.dishId).image}" alt="">
           <div class="p-4">
             <h2 class="font-bold text-lg mb-2">{getDishData(item.dishId).dishname}</h2>
@@ -130,11 +132,9 @@
           </div>
           <div class="md:mb-2">
             <button type="button" on:click = {()=>orderSubmit(item.cartId)} class="bg-gray-700  hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">PlaceOrder</button>
-            <button type="button" on:click={() => cartDeleteItem(item.cartId)} class="bg-gray-700 hover:bg-red-500 px-4 py-2 text-white font-bold rounded"><i class="fa-solid fa-trash-can"></i> Delete</button>
+            <button type="button" on:click={() => cartDeleteItem(item.cartId)} class="bg-gray-700 hover:bg-red-500 px-4 py-2 text-white font-bold rounded"><i class="fa-solid fa-trash-can text-xl"></i> Delete</button>
           </div>
         </div>
       {/each}
     </div>
-    
-    <style>
-  </style>
+  {/if}

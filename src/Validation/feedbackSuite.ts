@@ -11,7 +11,7 @@ const suite = create((data = {}, currentField) => {
       enforce(data.username).longerThanOrEquals(3);
     });
 
-    test('username', 'Username should not contain numerical characters', () => {
+    test('username', 'Numerical characters not allowed', () => {
         enforce(data.username).matches(/^[^0-9]*$/);
     });
 
@@ -36,17 +36,12 @@ const suite = create((data = {}, currentField) => {
         enforce(data.message).isNotBlank();
     });
    
-    test('message', 'Message should not contain numerical characters', () => {
+    test('message', 'Numerical characters not allowed', () => {
         enforce(data.message).matches(/^[^0-9]*$/);
     });
 
     test('message', 'No trailing and leading spaces', () => {
         enforce(data.message.trim()).equals(data.message);
-      });
-
-
-    
-    
+    });
 });
-
 export default suite;

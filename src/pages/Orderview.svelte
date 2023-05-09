@@ -4,6 +4,7 @@
   import * as _ from 'lodash';
   import 'toastr/build/toastr.min.css';
   import toastr from 'toastr';
+  toastr.options.timeOut = 1000;
 
   $:dishData=$DishInfoStore;
   $:orderData=$OrderStore;
@@ -22,15 +23,13 @@
     return cartitem;
   });
 };
-
-
 </script>
-  
-
+{#if orderData.length === 0}
+  <div class="flex justify-center">
+   <img src="../image/order.jpg" class="w-96" alt="" srcset="">
+  </div>
+{:else}
 <div class="w-full p-6 hidden md:block">
-    {#if orderData.length === 0}
-      <p>Your cart is empty</p>
-    {:else}
       <table class="w-full border-4 border-gray-400 rounded-2xl overflow-hidden text-left">
         <thead class="bg-yellow-500 text-black font-bold">
           <tr>
@@ -63,9 +62,8 @@
           {/each}
         </tbody>
       </table>
-    {/if}
-  </div>
-
+    </div>
+    
   <div class="px-2 py-1 md:hidden flex-row">
     {#each orderData as item}
       <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6">
@@ -91,6 +89,4 @@
       </div>
     {/each}
   </div>
-  
-  <style>
-</style>
+{/if}
